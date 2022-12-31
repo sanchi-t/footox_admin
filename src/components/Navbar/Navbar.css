@@ -1,0 +1,32 @@
+
+.maindiscbody{
+  background-color: black;
+}
+
+.navdisc{
+  padding-left: 250px;
+  background: rgb(0,0,0);
+  float: left;
+  
+}
+
+ .span1 {
+  align-items: center;
+  /* background-color: black; */
+  background: rgb(0,0,0);
+  color: rgb(224, 247, 247);
+  display: inline-block;
+  position: relative;
+  animation: span 16s linear infinite;
+}
+
+
+
+@keyframes span {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-150%, 0);
+  }
+}

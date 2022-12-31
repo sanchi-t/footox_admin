@@ -20,7 +20,7 @@ const Trending = () => {
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
-    initialSlide: 0,
+    initialSlide: 16,
     responsive: [
       {
         breakpoint: 1024,
@@ -50,9 +50,10 @@ const Trending = () => {
   };
   return (
     <div>
-      <Box border="1px solid beige">
-        <Heading align={"left"}> TOP PICS FOR YOU</Heading>
-        <Slider {...settings}>
+      <Heading align={"left"} fontFamily={"Times New Roman Times serif"} fontSize= {"35px"} fontWeight={"bold"}> New Arrivals</Heading>
+      <Box borderTop="1px solid grey" borderBottom="1px solid grey" padding={"20px"}>
+        
+        <Slider {...settings} centerPadding={"35px"}>
           {mensD?.length > 0 &&
             mensD.map((item) => {
               return <HomeDis key={item.key} item={item} />;

@@ -33,7 +33,7 @@
 //     }
 //     return { status: true };
 //   };
-//   console.log(checkMobile(9874561235))
+//   (checkMobile(9874561235))
 //   const checkPinCode = (num) => {
 //     if (num.length !== 6) {
 //       return { status: false, message: "Please provide 6 digit valid pincode" };

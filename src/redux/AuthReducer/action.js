@@ -3,12 +3,12 @@ import { setToast } from "../../components/Other/CheckProperty";
 import { saveLocalData } from "../../utils/localStorage";
 import * as types from "./actionType";
 
+
 const register = (payload, toast) => (dispatch) => {
   dispatch({ type: types.REGISTER_R });
   return axios
-    .post("https://masai-api-mocker.herokuapp.com/auth/register", payload)
+    .post("http://localhost:4000/signup", payload)
     .then((r) => {
-      console.log(r.data)
       setToast(toast, "Registered Successful", "success");
       dispatch({ type: types.REGISTER_S, payload: r.data });
     })
@@ -19,13 +19,16 @@ const register = (payload, toast) => (dispatch) => {
 };
 
 const login = (payload, toast) => (dispatch) => {
-  saveLocalData("userInfo",payload.username)
+  saveLocalData("userInfo", payload.email,)
   dispatch({ type: types.LOGIN_R });
   return axios
-    .post("https://masai-api-mocker.herokuapp.com/auth/login", payload)
+    .post("http://localhost:4000/login", payload)
     .then((r) => {
+      saveLocalData("userName", r.data.name);
+
+
       setToast(toast, "Login Successful", "success");
-      dispatch({ type: types.LOGIN_S, payload: r.data.token });
+      return dispatch({ type: types.LOGIN_S, payload: r.data.token, description: r.data.description });
     })
     .catch((e) => {
       setToast(toast, e.response.data.message, "error");
@@ -37,7 +40,7 @@ const profile = (payload) => (dispatch) => {
   dispatch({ type: types.PROFILE_R });
   const options = {
     method: "GET",
-    url: `https://masai-api-mocker.herokuapp.com/user/${payload.username}`,
+    url: `https://naresh-auth-user.onrender.com/auth/${payload.email}`,
     headers: { Authorization: `Bearer ${payload.token}` },
   };
   return axios(options)
@@ -52,45 +55,3 @@ const profile = (payload) => (dispatch) => {
 
 export { login, register, profile };
 
-
-// const login = (payload,toast) => (dispatch) => {
-//   //console.log(payload)
-//   dispatch({ type: types.LOGIN_R });
-
-//   return axios({
-//     method: "post",
-//     url: "/api/login",
-//     baseURL: "https://reqres.in",
-//     data: payload,
-//   })
-//     .then((res) => {
-//       setToast(toast, "Login Successful", "success");
-//       return dispatch({
-//         type: types.LOGIN_S,
-//         payload: res.data.token,
-//       });
-//     })
-//     .catch((err) => {
-//       setToast(toast, err.response.data.message, "error");
-//       dispatch({ type: types.LOGIN_F });
-//     });
-// };
-// export {login,register,profile}
-//================================================
-
-// const profile = (payload) => (dispatch) => {
-//   const config = {
-//     headers: { Authorization: `Bearer ${payload.token}` },
-//   };
-//   dispatch({ type: types.PROFILE_R });
-//   axios
-//     .get(
-//       `https://masai-api-mocker.herokuapp.com/user/${payload.username}`,
-//       config
-//     )
-//     .then((r) => {
-//       console.log(r);
-//       dispatch({ type: types.PROFILE_S, paylaod: r.data });
-//     })
-//     .catch((e) => dispatch({ type: types.PROFILE_F, payload: e }));
-// };

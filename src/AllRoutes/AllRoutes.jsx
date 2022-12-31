@@ -1,6 +1,6 @@
 import React from "react";
 import Home from "../Pages/Home";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import AllProducts from "../Pages/AllProducts";
 import Men from "../Pages/Men";
 import Women from "../Pages/Women";
@@ -15,6 +15,17 @@ import Checkout from "../Pages/Checkout";
 import Authentication from "../PrivateRoute/Authentication";
 import MyAccount from "../Pages/MyAccount";
 import AdminPage from "../Admin/AdminPage";
+import CouponPage from "../Admin/CouponPage";
+import AddCoupon from "../Admin/AddCoupon";
+import AdminNavbar from "../Admin/AdminNavbar";
+
+
+const withLocation = Component => props => {
+  const location = useLocation();
+
+  return <Component {...props} location={location} />;
+};
+
 const AllRoutes = () => {
   return (
     <div>
@@ -54,9 +65,26 @@ const AllRoutes = () => {
             </Authentication>
           }
         />
+        <Route
+          path="/coupon"
+          element={
+            <Authentication>
+              <CouponPage />
+            </Authentication>
+          }
+        />
+        <Route
+          path="/couponAdd"
+          element={
+            <Authentication>
+              <AdminNavbar />
+              <AddCoupon />
+            </Authentication>
+          }
+        />
       </Routes>
     </div>
   );
 };
 
-export default AllRoutes;
+export default withLocation(AllRoutes);

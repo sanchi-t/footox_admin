@@ -27,7 +27,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [username, setUsername] = useState("");
+  // const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const toast = useToast();
   const loading = useSelector((store) => store.AuthReducer.isLoading);
@@ -37,21 +38,20 @@ const Login = () => {
     setEye((prev) => !prev);
   };
   const loginHandler = () => {
-    if (username === "naresh11" && password === "naresh#111*") {
+    if (email && password) {
       const params = {
-        username,
+        email,
         password,
       };
       dispatch(login(params, toast)).then((res) => {
-        navigate("/admin", { replace: true });
-      });
-    } else if (username && password) {
-      const params = {
-        username,
-        password,
-      };
-      dispatch(login(params, toast)).then((res) => {
-        navigate(pathRoute, { replace: true });
+        if(res.description==="admin"){
+          navigate("/admin", { replace: true });
+        }
+        else{
+          navigate(pathRoute, { replace: true });
+
+        }
+
       });
     }
   };
@@ -72,8 +72,8 @@ const Login = () => {
                 <FormLabel>Username</FormLabel>
                 <Input
                   type="text"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </FormControl>
               <FormControl id="password" isRequired>

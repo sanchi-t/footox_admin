@@ -3,24 +3,38 @@ import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import { AiFillCaretDown } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import SideBar from "./SideBar";
+
+import { useDispatch} from "react-redux";
+import { AddData } from "./AddModal";
+import { getData } from "../redux/DataReducer/action";
+// import { useState } from "react";
+import {Sidebar} from "./SideBar";
+
+
 const AdminNavbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
 
   const logoutHandler = () => {
     new Promise((res, rej) => {
       res(localStorage.removeItem("token"));
       res(localStorage.removeItem("userInfo"));
+      res(localStorage.removeItem("userName"));
+
     }).then(() => {
       navigate("/login");
       window.location.reload();
     });
   };
+
   return (
+    <>
+
     <Box h="8vh" bg={"black"} mx={"5"}>
       <Flex alignItems={"center"} justifyContent={"space-between"}>
         <Box mx={"5"}>
-          <SideBar />
+          <Sidebar/>
         </Box>
         <Box mx={"5"}>
           <Menu>
@@ -31,17 +45,23 @@ const AdminNavbar = () => {
               as={Button}
               rightIcon={<AiFillCaretDown />}
             >
-              Naresh Rajput
+              {localStorage.userName}
             </MenuButton>
             <MenuList>
               <MenuItem as={"Button"} onClick={logoutHandler}>
                 Logout
-              </MenuItem>
+              </MenuItem>              
             </MenuList>
+            <AddData
+                    
+                    dispatch={dispatch}
+                    getData={getData}
+                  />
           </Menu>
         </Box>
       </Flex>
     </Box>
+    </>
   );
 };
 

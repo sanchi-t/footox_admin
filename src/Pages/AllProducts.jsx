@@ -38,7 +38,7 @@ const AllProducts = () => {
   return (
     <div className="AllProducts">
       <Navbar /> <br />
-      {loading ? (
+      {0 ? (
         <Loading />
       ) : (
         <Flex flexDirection={isLargerThan ? "row" : "column"}>

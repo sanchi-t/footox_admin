@@ -6,20 +6,22 @@ import { deleteData, getData } from "../redux/DataReducer/action";
 import { AdminUpdate } from "./AdminModal";
 import AdminNavbar from "./AdminNavbar";
 import { DeleteIcon, Icon } from "@chakra-ui/icons";
+
 const AdminPage = () => {
   const [isLargerThan] = useMediaQuery("(min-width: 468px)");
   const dispatch = useDispatch();
+
   const products = useSelector((state) => state.dataReducer.products);
-  //const loading = useSelector((store) => store.dataReducer.isLoading);
   const deleteProduct = (id) => {
     dispatch(deleteData(id)).then(() => {
       dispatch(getData());
     });
   };
-
   useEffect(() => {
+    console.log('admin?');
     dispatch(getData());
   }, [dispatch]);
+
   return (
     <>
       <AdminNavbar />
@@ -30,6 +32,8 @@ const AdminPage = () => {
         boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
         p={"1rem"}
       >
+        {(products[0].images!=undefined) &&(
+          <>
         {products.map((item) => (
           <Flex
             alignItems={"center"}
@@ -72,6 +76,8 @@ const AdminPage = () => {
             </Box>
           </Flex>
         ))}
+        </>
+        )}
       </Box>
     </>
   );

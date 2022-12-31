@@ -30,7 +30,6 @@ const Profile = ({ colorMode }) => {
   const auth = useSelector((state) => state.AuthReducer.isAuth);
 
   const profileData = useSelector((state) => state.AuthReducer?.profileData);
-  // console.log("profileData:", profileData);
   useEffect(() => {
     if (profileData?.length === 0) {
       const token = localStorage.getItem("token"); //different approaches for getting local storage
