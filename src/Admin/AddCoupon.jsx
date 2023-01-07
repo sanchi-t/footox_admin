@@ -155,7 +155,7 @@ const AddCoupon = () => {
        
  
 <p style={{position: 'relative',float: 'left' ,paddingRight:'30px' }}>
-        <label >Coupon Code: <input defaultValue={val.code} style={{ border: '2px solid black'}} name="couponCode" /></label>
+        <label >Coupon Code: <input defaultValue={val.code} style={{ border: '1px solid black'}} name="couponCode" /></label>
         <p style={{paddingTop:'60px' }} defaultValue={val.status}  key={val.status} name='couponStatus'>
         <RadioGroup name='couponStatus' defaultValue={val.status} style={{ alignItems: 'flex-start', float: 'left' }}>
             <FormLabel as='legend'>Coupon Status</FormLabel>
@@ -173,7 +173,7 @@ const AddCoupon = () => {
        
  
 <p style={{position: 'relative',float: 'right',paddingLeft:'30px'   }}>
-<label >Discount Value: <input defaultValue={val.value} key={val.value} style={{ border: '2px solid black'}} name="DiscountValue" /></label>
+<label >Discount Value: <input defaultValue={val.value} key={val.value} style={{ border: '1px solid black'}} name="DiscountValue" /></label>
 
 <p style={{position: 'relative',paddingTop:'60px' }} id='bt1' name='couponType'>
 <RadioGroup name='couponType' defaultValue={val.type} key={val.type} style={{ float: 'right', alignItems: 'flex-start' }}>
@@ -200,7 +200,7 @@ const AddCoupon = () => {
         <label style={{position: 'relative',paddingRight:'30px',paddingTop:'30px' }}>
           Coupon Category
           <br />
-          <select name='discountCategory' defaultValue={val.category} key={val.category} style={{ border: '2px solid black',width:'500px'}}>
+          <select name='discountCategory' defaultValue={val.category} key={val.category} style={{ border: '1px solid black',width:'500px'}}>
             <option>All</option>
             <option>Shoes</option>
             <option>jeans</option>
@@ -212,7 +212,7 @@ const AddCoupon = () => {
  
 
  <p style={{paddingTop:'60px',paddingBottom:'60px'}}>
- <label >Limit: <input defaultValue={val.limit} key={val.limit} style={{ border: '2px solid black'}} name="CouponLimit" /></label>
+ <label >Limit: <input defaultValue={val.limit} key={val.limit} style={{ border: '1px solid black'}} name="CouponLimit" /></label>
  </p>
  
        
@@ -220,12 +220,12 @@ const AddCoupon = () => {
 
  
  <p style={{position: 'relative',float: 'left',paddingRight:'220px'   }}>
-        <label>Start Date:<input defaultValue={val.startDate} key={val.startDate} style={{ border: '2px solid black'}} type="date" name="StartDate"/></label>
+        <label>Start Date:<input defaultValue={val.startDate} key={val.startDate} style={{ border: '1px solid black'}} type="date" name="StartDate"/></label>
       </p> 
        
  
 <p>
-        <label>End Date:<input defaultValue={val.endDate} key={val.endDate} style={{ border: '2px solid black'}} type="date" name="EndDate"/></label>
+        <label>End Date:<input defaultValue={val.endDate} key={val.endDate} style={{ border: '1px solid black'}} type="date" name="EndDate"/></label>
       </p>
       
       <p>
@@ -316,7 +316,7 @@ const AddCoupon = () => {
                         <Row className="mt-3 mt-lg-4 px-3">
                             <FormLabel as='legend'>Discount Category</FormLabel ><br></br>
 
-                            <div style={{ border: '2px solid black', float: 'left' }}>
+                            <div style={{ border: '1px solid black', float: 'left' }}>
                                 <select name='discountCategory' style={{ width: '100%', float: 'left' }}>
                                     <option value="women">Women's</option>
                                     <option value="men">Men's</option>

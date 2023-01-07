@@ -105,7 +105,7 @@ return (
 		{subnav
 			? <div><DropdownLink to={'/coupon'} key={0}>
 			{<IoIcons.IoIosPaper />}
-			<SidebarLabel >{'Coupons List'}</SidebarLabel>
+			<SidebarLabel onClick={noaddc} >{'Coupons List'}</SidebarLabel>
 			</DropdownLink>
 			<DropdownLink to={'/couponAdd'} key={1}>
 			{<IoIcons.IoIosPaper />}
@@ -132,6 +132,13 @@ return (
 	<SidebarLink to={'/admin'}>
 		<div>
 		<SidebarLabel >{'Admin'}</SidebarLabel>
+		</div>
+		<div >
+		</div>
+	</SidebarLink>
+	<SidebarLink to={'/banner'}>
+		<div>
+		<SidebarLabel >{'Banner'}</SidebarLabel>
 		</div>
 		<div >
 		</div>

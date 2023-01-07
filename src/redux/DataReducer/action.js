@@ -103,7 +103,7 @@ const updateCoupon = (id, payload) => (dispatch) => {
 const getOneCoupon = (id,mode) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios.post
-    (`http://localhost:4000/couponGetOne`, {id,mode},{
+    (`http://localhost:4000/couponOne`, {id,mode},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -119,7 +119,7 @@ const getOneCoupon = (id,mode) => (dispatch) => {
 const deleteCoupon = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
-    .post(`http://localhost:4000/coupon`,{id},{
+    .delete(`http://localhost:4000/coupon`,{id},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -137,7 +137,7 @@ const addCoupon = (details) => (dispatch) => {
 
   dispatch({ type: types.Add_DATA_R });
   return axios.post
-    (`http://localhost:4000/couponAdd/`, {details},{
+    (`http://localhost:4000/coupon`, {details},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -153,7 +153,34 @@ const addCoupon = (details) => (dispatch) => {
     });
 };
 
+const getBannerData = (params) => (dispatch) => {
+  dispatch({ type: types.GET_DATA_R });
+  return axios
+    .get("http://localhost:4000/banner", params)
+    .then((res) => {
+      dispatch({ type: types.GET_DATA_S, payload: res.data });
+    })
+    .then((err) => {
+      dispatch({ type: types.GET_DATA_F });
+    });
+};
+
+const updateBannerData = (id, payload) => (dispatch) => {
+  dispatch({ type: types.UPDATE_DATA_R });
+  return axios.post
+    (`http://localhost:4000/banner`, {id,payload},{
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    } )
+    .then((res) => {
+      dispatch({ type: types.UPDATE_DATA_S });
+    })
+    .catch((err) => {
+      dispatch({ type: types.UPDATE_DATA_F });
+    });
+};
 
 
-export { getData, updateData, deleteData,addData,getCoupon,updateCoupon,deleteCoupon,addCoupon,getOneCoupon };
+export { getData, updateData, deleteData,addData,getCoupon,updateCoupon,deleteCoupon,addCoupon,getOneCoupon,getBannerData,updateBannerData };
 

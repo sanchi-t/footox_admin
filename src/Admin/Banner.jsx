@@ -2,8 +2,8 @@ import { Box, Button, Flex, Image, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteData, getData } from "../redux/DataReducer/action";
-import { AdminUpdate } from "./AdminModal";
+import { deleteData, getBannerData } from "../redux/DataReducer/action";
+import { AdminUpdate } from "./BannerModal";
 import AdminNavbar from "./AdminNavbar";
 import { DeleteIcon, Icon } from "@chakra-ui/icons";
 
@@ -14,12 +14,12 @@ const AdminPage = () => {
   const products = useSelector((state) => state.dataReducer.products);
   const deleteProduct = (id) => {
     dispatch(deleteData(id)).then(() => {
-      dispatch(getData());
+      dispatch(getBannerData());
     });
   };
   useEffect(() => {
     console.log('admin?');
-    dispatch(getData());
+    dispatch(getBannerData());
   }, [dispatch]);
 
   return (
@@ -42,14 +42,15 @@ const AdminPage = () => {
             my={"5"}
             fontSize={["7px", "10px", "12px", "15px"]}
           >
-            <Box width={"55px"} mx={"2"}>
-              <Image width={"100%"} src={item.images[0]} alt={item.name} />
-            </Box>
-            {isLargerThan ? <Box w="15%">{item.name}</Box> : null}
-            <Box w="15%">{item.gender}</Box>
-            <Box w="15%">{item.category}</Box>
-            <Box w="15%">{item.final_price}</Box>
+            <Box w="15%">{item.name}</Box>
+            {item.images.map((img) => (
+
+            <Box width={"300px"} mx={"2"}>
+              <Image width={"100%"} src={img} alt={'item.name'} />
+            </Box>))}
             <Box>
+                
+
               <Flex
                 alignItems={"center"}
                 justifyContent={"space-between"}
@@ -67,9 +68,10 @@ const AdminPage = () => {
                 <Box mx={"3"}>
                   <AdminUpdate
                     id={item.id}
+                    abc={item.images}
                     products={products}
                     dispatch={dispatch}
-                    getData={getData}
+                    getBannerData={getBannerData}
                   />
                 </Box>
               </Flex>

@@ -20,6 +20,7 @@ const CouponPage = () => {
   };
 
   const editCoupons = (id) => {
+    console.log('before',id)
     navigate("/couponAdd",{state:{id:id,mode:'edit'}});
   };
 

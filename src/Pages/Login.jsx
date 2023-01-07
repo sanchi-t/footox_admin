@@ -44,6 +44,7 @@ const Login = () => {
         password,
       };
       dispatch(login(params, toast)).then((res) => {
+        console.log('res,res',res);
         if(res.description==="admin"){
           navigate("/admin", { replace: true });
         }

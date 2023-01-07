@@ -18,6 +18,7 @@ import AdminPage from "../Admin/AdminPage";
 import CouponPage from "../Admin/CouponPage";
 import AddCoupon from "../Admin/AddCoupon";
 import AdminNavbar from "../Admin/AdminNavbar";
+import Banner from "../Admin/Banner";
 
 
 const withLocation = Component => props => {
@@ -82,6 +83,7 @@ const AllRoutes = () => {
             </Authentication>
           }
         />
+        <Route path="/banner" element={<Banner/>}/>
       </Routes>
     </div>
   );
