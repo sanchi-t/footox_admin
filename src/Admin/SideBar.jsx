@@ -62,6 +62,9 @@ export default function SideBar() {
                 <Link to="/">Home</Link>
               </Box>
               <Box>
+                <Link to="/Instagram">Instagram Links</Link>
+              </Box>
+              <Box>
               
               <Menu isLazy>
               <MenuButton>Products</MenuButton>

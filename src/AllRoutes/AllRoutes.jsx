@@ -27,6 +27,7 @@ import { ViewSku } from "../Admin/products/ViewSku";
 import AdminPage1 from "../Admin/products/banner";
 import CouponPage from "../Admin/CouponPage";
 import AddCoupon from "../Admin/AddCoupon";
+import {MyForm} from "../Admin/Instagram"; 
 
 // import Editor from "../Admin/textEditor";
 const AllRoutes = () => {
@@ -51,6 +52,8 @@ const AllRoutes = () => {
         //  getData={getData}
         // />}
         />
+        <Route path ="/Instagram" element={<MyForm/>} />
+
         <Route
           path="/wishlist"
           element={
