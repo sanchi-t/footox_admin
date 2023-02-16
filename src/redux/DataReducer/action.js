@@ -119,11 +119,7 @@ const getOneCoupon = (id,mode) => (dispatch) => {
 const deleteCoupon = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
-    .delete(`http://localhost:4000/coupon`,{id},{
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
+    .delete(`http://localhost:4000/coupon/${id}`)
     .then((res) => {
       dispatch({ type: types.DELETE_DATA_S });
     })

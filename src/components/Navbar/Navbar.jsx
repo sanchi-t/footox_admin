@@ -21,6 +21,7 @@ import logo2 from "../../img/disc2.png";
 import logo3 from "../../img/disc3.png";
 
 //import { FiUser } from "react-icons/fi";
+// import ModalWindow from './sa.jsx'
 import { BsSuitHeart } from "react-icons/bs";
 import { BsBag } from "react-icons/bs";
 import { DarkModeBtn } from "../DarkMode/DarkModeBtn";

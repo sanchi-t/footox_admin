@@ -16,7 +16,7 @@ const ProductDis = ({ item }) => {
     setImg(images[1]);
   };
   const OriginalImage = () => {
-    setImg(images[0]);
+    setImg(images?.[0]);
   };
 
   return (

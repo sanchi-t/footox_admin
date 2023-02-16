@@ -19,11 +19,13 @@ function AddProduct() {
     const [check, setCheckbox] = useState([])
     const [color, setColor] = useState([]);
     const [showhide, setShowhide] = useState('');
+    const [gender, setGender] = useState('');
     const mystyle = {
         padding: "10px",
         // fontFamily: "Arial"
         float: 'left'
     };
+    var img = [];
     const state = {
         button: 1
     };
@@ -37,7 +39,7 @@ function AddProduct() {
             ["blockquote", "code-block"],
             [{ list: "ordered" }, { list: "bullet" }],
             [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
-            ["link", "image", "video"],
+            ["link"],
             ["clean"],
         ],
     };
@@ -45,7 +47,6 @@ function AddProduct() {
     const [productInput, setProduct] = useState({
         product_id: '',
         productName: '',
-        productGender: '',
         description: '',
         selling_price: '',
         original_price: '',
@@ -70,6 +71,12 @@ function AddProduct() {
     // const handleClick = () => {
     //     navigate("/viewProduct",{state:{status: "Stock update pending"}});
     // }
+    const handleGender = (e) => {
+        // let gen = gender;
+       const  gen = e.target.value
+        setGender(gen);
+       
+    }
 
     const handleImage = (e) => {
         // if (Array.from(e.target.files).length > MAX_LENGTH) {
@@ -77,7 +84,9 @@ function AddProduct() {
         //     alert(`Cannot upload files more than ${MAX_LENGTH}`);
 
         // } else {
-        setPicture({ image: e.target.files });
+             img = e.target.files;
+        // setPicture({ image: e.target.files });
+        setPicture(e.target.files)
         // }
     }
     const handleshowhide = (e) => {
@@ -103,7 +112,7 @@ function AddProduct() {
         console.log(`${value} is ${checked}`);
 
         if (checked) {
-            // setCheckbox([value, ...check])
+            
             check.push(e.target.value);
         } else {
             // setCheckbox(check.filter((e) => e !== value));
@@ -116,13 +125,13 @@ function AddProduct() {
         e.preventDefault();
         if (state.button === 1) {
             const formData = new FormData();
-            for (const key of Object.keys(pricture.image)) {
-                formData.append('image', pricture.image[key])
+            for (const key of Object.keys(pricture)) {
+                formData.append('image', pricture[key])
             }
             // formData.append('image', pricture.image);
             formData.append('productId', productInput.productId);
             formData.append('productName', productInput.productName);
-            formData.append('productGender', productInput.productGender);
+            formData.append('productGender', gender);
             formData.append('description', productDescription);
             formData.append('CurrentDate', date);
             formData.append("UpdatedDate", date);
@@ -131,12 +140,16 @@ function AddProduct() {
             }
             formData.append('selling_price', productInput.selling_price);
             formData.append('original_price', productInput.original_price);
-            formData.append('Status', "Stock update Pending!")
+            formData.append('Status', "Stock update Pending!");
+            formData.append('Quantity', 0);
+            console.log(sizes);
             for (const key of Object.keys(sizes)) {
-                formData.append('Sizes', sizes[key])
+                formData.append('Sizes',
+                    sizes[key])
             }
-            // formData.append('Sizes', check);
-            formData.append('brand', productInput.category);
+
+
+            formData.append('category', productInput.category);
 
 
             axios.post('http://localhost:4000/admin3/', formData).then(res => {
@@ -147,11 +160,11 @@ function AddProduct() {
                     ...productInput,
                     productId: '',
                     productName: '',
-                    productGender: '',
+                   
                     description: '',
                     selling_price: '',
                     original_price: '',
-                    brand: '',
+                    category: '',
                 });
                 setError([]);
                 // dispatch(addData(formData)).then(() => {
@@ -175,8 +188,10 @@ function AddProduct() {
             setSizes(shoeSize);
 
             setShowhide('');
+            // console.log(gender)
 
             console.log(sizes);
+            // console.log(pricture.image[0]);
 
 
         }
@@ -251,7 +266,16 @@ function AddProduct() {
                                             <div className="form-group row mb-5 gx-5 g-0">
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Gender</p></label>
                                                 <div className='col-sm-8 mb-3'>
-                                                    <input type="text" name="productGender" onChange={handleInput} value={productInput.Gender} className="form-control" style={{ borderColor: 'grey' }} />
+                                                    {/* <input type="text" name="productGender" onChange={handleInput} value={productInput.Gender} className="form-control" style={{ borderColor: 'grey' }} /> */}
+
+                                                    <Select name="Color" className="form-control" onChange={(e) => (handleGender(e))} style={{ borderColor: 'grey' }} placeholder="--Select Gender--">
+                                                    {/* <option value="">--Select Color--</option> */}
+                                                    <option value="Men">Men</option>
+                                                    <option value="Women">Women</option>
+                                                    <option value="Universal">Universal</option>
+                                                    {/* <option value="Grey">Grey</option>
+                                                    <option value="White">White</option> */}
+                                                </Select>
                                                     <small className="text-danger">{errorlist.Gender}</small>
                                                 </div>
 
@@ -259,7 +283,7 @@ function AddProduct() {
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'initial' }}>Category</p></label>
 
                                                 <div className='col-sm-8'>
-                                                    <input type="text" name="brand" onChange={handleInput} value={productInput.brand} className="form-control" style={{ borderColor: 'grey' }} />
+                                                    <input type="text" name="category" onChange={handleInput} value={productInput.category} className="form-control" style={{ borderColor: 'grey' }} />
                                                     <small className="text-danger">{errorlist.category}</small>
                                                 </div>
                                             </div>
@@ -335,7 +359,7 @@ function AddProduct() {
                                                         <div className="col-md-10 form-group mb-2" >
                                                             <label style={{ float: 'left' }}><p style={{ fontSize: "x-large" }}>Select Sizes</p></label> <br /><br />
                                                         </div>
-                                                       
+
                                                         {/* <div className='col-sm-3 '>
 
 
@@ -474,36 +498,36 @@ function AddProduct() {
 
                                                         </div> */}
 
-                                                        <FormControl as={SimpleGrid} columns={{ base: 2, lg: 10 }} spacingX = '60px'>
+                                                        <FormControl as={SimpleGrid} columns={{ base: 2, lg: 10 }} spacingX='60px'>
                                                             <FormLabel htmlFor='2'>2</FormLabel>
-                                                            <Switch id='2' value='2'  onChange={(e) => getCheckbox(e)} />
+                                                            <Switch id='2' value='2' onChange={(e) => getCheckbox(e)} />
 
                                                             <FormLabel htmlFor='3'>3</FormLabel>
                                                             <Switch id='3' value='3' onChange={(e) => getCheckbox(e)} />
 
                                                             <FormLabel htmlFor='4'>4</FormLabel>
-                                                            <Switch id='4'  onChange={(e) => getCheckbox(e)} value='4'/>
+                                                            <Switch id='4' onChange={(e) => getCheckbox(e)} value='4' />
 
                                                             <FormLabel htmlFor='5'>5</FormLabel>
                                                             <Switch id='5' onChange={(e) => getCheckbox(e)} value='5' />
 
                                                             <FormLabel htmlFor='6'>6</FormLabel>
-                                                            <Switch id='6' onChange={(e) => getCheckbox(e)} value='6'  />
+                                                            <Switch id='6' onChange={(e) => getCheckbox(e)} value='6' />
 
                                                             <FormLabel htmlFor='7'>7</FormLabel>
-                                                            <Switch id='7' onChange={(e) => getCheckbox(e)} value='7'  />
+                                                            <Switch id='7' onChange={(e) => getCheckbox(e)} value='7' />
 
                                                             <FormLabel htmlFor='8'>8</FormLabel>
-                                                            <Switch id='8' onChange={(e) => getCheckbox(e)} value='8'  />
+                                                            <Switch id='8' onChange={(e) => getCheckbox(e)} value='8' />
 
                                                             <FormLabel htmlFor='9'>9</FormLabel>
-                                                            <Switch id='9' onChange={(e) => getCheckbox(e)} value='9'  />
+                                                            <Switch id='9' onChange={(e) => getCheckbox(e)} value='9' />
 
                                                             <FormLabel htmlFor='10'>10</FormLabel>
-                                                            <Switch id='10' onChange={(e) => getCheckbox(e)} value='10'  />
+                                                            <Switch id='10' onChange={(e) => getCheckbox(e)} value='10' />
 
                                                             <FormLabel htmlFor='11'>11</FormLabel>
-                                                            <Switch id='11' onChange={(e) => getCheckbox(e)} value='11'  />
+                                                            <Switch id='11' onChange={(e) => getCheckbox(e)} value='11' />
 
                                                             <FormLabel htmlFor='12'>12</FormLabel>
                                                             <Switch id='12' onChange={(e) => getCheckbox(e)} value='12' />

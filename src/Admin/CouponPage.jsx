@@ -14,6 +14,7 @@ const CouponPage = () => {
     const products = useSelector((state) => state.dataReducer.products);
   
   const deleteCoupons = (id) => {
+    console.log('del',id)
     dispatch(deleteCoupon(id)).then(() => {
       dispatch(getCoupon());
     });
