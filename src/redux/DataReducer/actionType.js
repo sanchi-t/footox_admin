@@ -9,3 +9,12 @@ export const UPDATE_DATA_F = "UPDATE_DATA_F";
 export const DELETE_DATA_R = "UPDATE_DATA_R";
 export const DELETE_DATA_S = "UPDATE_DATA_S";
 export const DELETE_DATA_F = "UPDATE_DATA_F";
+
+export const Add_DATA_R = "INSERT_DATA_R"
+export const Add_DATA_S = "INSERT_DATA_S"
+export const Add_DATA_F = "INSERT_DATA_F"
+
+export const Add_IMG_R = "INSERT_IMG_R"
+export const Add_IMG_S = "INSERT_IMG_S"
+export const Add_IMG_F = "INSERT_IMG_F"
+

@@ -11,16 +11,32 @@ import {
   Box,
   Stack,
   useColorMode,
+  Select
 } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
+} from '@chakra-ui/react'
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch} from "react-redux";
+// import { AddData } from "./AddModal";
+// import StockUpdate from "./products/viewProduct1";
+import { getData } from "../redux/DataReducer/action";
 
 export default function SideBar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
   const { colorMode } = useColorMode();
+  const dispatch = useDispatch();
   return (
     <>
       <Button ref={btnRef} onClick={onOpen}>
@@ -46,10 +62,28 @@ export default function SideBar() {
                 <Link to="/">Home</Link>
               </Box>
               <Box>
-                <Link to="/allproducts">AllProducts</Link>
+              
+              <Menu isLazy>
+              <MenuButton>Products</MenuButton>
+                  <MenuList>
+                    <MenuItem><Link to="/addproduct">Add products</Link></MenuItem>
+                    <MenuItem><Link to="/viewProduct">Product Details</Link></MenuItem>
+                    {/* <MenuItem>Product edit</MenuItem> */}
+                  </MenuList>
+</Menu>
+          
               </Box>
               <Box>
-                <Link to="/men">Men's</Link>
+                <Link to="/StockPage">Stock Managment</Link>
+              </Box>
+              <Box>
+                <Link to="/orderManagement">Order Managment</Link>
+              </Box>
+              <Box>
+                <Link to="/Instagram">Instagram Links</Link>
+              </Box>
+              <Box>
+                <Link to="/SendMail">Send Mail</Link>
               </Box>
               <Box>
                 <Link to="/women">Women's</Link>

@@ -4,14 +4,13 @@ import {
   Flex,
   Heading,
   Icon,
-  // Spacer,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
 import React from "react";
 import portfolio from "../../img/portfolio.png";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
-// import { GiCondorEmblem } from "react-icons/gi";
+
 import { Link } from "react-router-dom";
 const Footer = () => {
   const [isLargerThan] = useMediaQuery("(min-width: 768px)");

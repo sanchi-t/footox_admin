@@ -1,6 +1,6 @@
 import React from "react";
 // import './Carousel.css';
-import { useTheme } from "@material-ui/core/styles";
+// import { useTheme } from "@material-ui/core/styles";
 import {
   Box,
   // IconButton,
@@ -45,7 +45,7 @@ const sliderStyle={
 }
 
 export default function Carousel() {
-  const theme = useTheme();
+  // const theme = useTheme();
   const [index, setActiveStep] = React.useState(0);
  
   const goToNextPicture = () => {

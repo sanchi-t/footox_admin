@@ -38,7 +38,7 @@ const Login = () => {
     setEye((prev) => !prev);
   };
   const loginHandler = () => {
-    if (email === "nareshmewada014@gmail.com" && password === "naresh#111*") {
+    if (email === "aman@gmail.com" && password === "Aman@123") {
       const params = {
         email,
         password,

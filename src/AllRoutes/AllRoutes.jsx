@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import AllProducts from "../Pages/AllProducts";
 import Men from "../Pages/Men";
 import Women from "../Pages/Women";
+import AddProduct from "../Admin/products/addProduct";
 
 import DescriptionPage from "../components/Description/DescriptionPage";
 import AllshoesD from "../Pages/Shoes";
@@ -15,17 +16,40 @@ import Checkout from "../Pages/Checkout";
 import Authentication from "../PrivateRoute/Authentication";
 import MyAccount from "../Pages/MyAccount";
 import AdminPage from "../Admin/AdminPage";
+import {AddData} from "../Admin/AddModal";
+import OrderPage from "../Admin/products/orderManagement";
+import { useDispatch} from "react-redux";
+import ProductPage from "../Admin/products/viewProduct";
+// import {Stockpage1} from "../Admin/products/StockPage1";
+// import { StockPage1 } from "../Admin/products/StockPage1";
+import { getData } from "../redux/DataReducer/action";
+import StockPage2 from "../Admin/products/StockPage2";
+import { ViewSku } from "../Admin/products/ViewSku";
+import { ViewDetails } from "../Admin/products/viewDetails";
+import { MyForm } from "../Admin/Instagram";
+import SendMail from "../Admin/products/sendMail";
+// import {Banner} from "../Admin/products/banner"
 const AllRoutes = () => {
+  const dispatch = useDispatch();
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/allproducts" element={<AllProducts />} />
-        <Route path="/men" element={<Men />} />
+        <Route path="/StockPage" element={<StockPage2/>} />
         <Route path="/women" element={<Women />} />
         <Route path="/shoes" element={<AllshoesD />} />
         <Route path="/description/:id" element={<DescriptionPage />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/viewProduct" element={<ProductPage/>} />
+        <Route path ="/viewSku" element={<ViewSku/>} />
+        <Route path ="/orderManagement" element={<OrderPage/>} />
+        <Route path ="/viewDetails" element={<ViewDetails/>} />
+        <Route path ="/Instagram" element={<MyForm/>} />
+        <Route path ="/SendMail" element={<SendMail/>} />
+        <Route path="/addproduct" element=
+        {<AddProduct/>}
+        />
         <Route
           path="/wishlist"
           element={
@@ -49,9 +73,9 @@ const AllRoutes = () => {
         <Route
           path="/admin"
           element={
-            <Authentication>
+            // <Authentication>
               <AdminPage />
-            </Authentication>
+            // </Authentication>
           }
         />
       </Routes>

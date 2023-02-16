@@ -6,7 +6,7 @@ import * as types from "./actionType";
 const register = (payload, toast) => (dispatch) => {
   dispatch({ type: types.REGISTER_R });
   return axios
-    .post("https://naresh-auth-user.onrender.com/auth/signup", payload)
+    .post("http://localhost:4000/signup", payload)
     .then((r) => {
       console.log(r.data)
       setToast(toast, "Registered Successful", "success");
@@ -23,7 +23,7 @@ const login = (payload, toast) => (dispatch) => {
   saveLocalData("userInfo", payload.email)
   dispatch({ type: types.LOGIN_R });
   return axios
-    .post("https://naresh-auth-user.onrender.com/auth/login", payload)
+    .post("http://localhost:4000/login", payload)
     .then((r) => {
       setToast(toast, "Login Successful", "success");
       dispatch({ type: types.LOGIN_S, payload: r.data.token });
