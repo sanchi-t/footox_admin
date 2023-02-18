@@ -115,7 +115,7 @@ function AddProduct() {
         }
         formData.append('selling_price', productInput.selling_price);
         formData.append('original_price', productInput.original_price);
-        formData.append('Status', "Stock update Pending!")
+        formData.append('Status', "Status update Pending!")
         for (const key of Object.keys(sizes)) {
             formData.append('Sizes', sizes[key])
         }

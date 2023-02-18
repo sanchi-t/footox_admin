@@ -3,11 +3,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteData, getBannerData } from "../../redux/DataReducer/action";
-import { AdminUpdate } from "./BannerModal";
+import { AdminUpdate } from "../AdminModal";
 import AdminNavbar from "../AdminNavbar";
 import { DeleteIcon, Icon } from "@chakra-ui/icons";
 
-const AdminPage1 = () => {
+const Banner = () => {
   const [isLargerThan] = useMediaQuery("(min-width: 468px)");
   const dispatch = useDispatch();
 
@@ -41,16 +41,12 @@ const AdminPage1 = () => {
             justifyContent={"space-between"}
             my={"5"}
             fontSize={["7px", "10px", "12px", "15px"]}
-          >
+          > 
             <Box w="15%">{item.name}</Box>
-            {item.images.map((img) => (
-
             <Box width={"300px"} mx={"2"}>
-              <Image width={"100%"} src={img} alt={'item.name'} />
-            </Box>))}
+              <Image width={"100%"} src={item.images[0]} alt={'item.name'} />
+            </Box>
             <Box>
-                
-
               <Flex
                 alignItems={"center"}
                 justifyContent={"space-between"}
@@ -68,7 +64,6 @@ const AdminPage1 = () => {
                 <Box mx={"3"}>
                   <AdminUpdate
                     id={item.id}
-                    abc={item.images}
                     products={products}
                     dispatch={dispatch}
                     getBannerData={getBannerData}
@@ -85,4 +80,4 @@ const AdminPage1 = () => {
   );
 };
 
-export default AdminPage1;
+export default Banner;

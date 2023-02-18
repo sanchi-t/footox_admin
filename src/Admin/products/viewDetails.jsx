@@ -14,20 +14,17 @@ import swal from 'sweetalert';
 // import { addData} from "../redux/DataReducer/action";
 import { deleteCoupon, getCoupon, getData, deleteData,addData } from "../../redux/DataReducer/action";
 
-export function ViewSku() {
+export function ViewDetails() {
   const [Quantity, setQuantity] = useState({});
-  const [prod, setProd] = useState([]);
   const id = 1
   // const [room, setRooms] = useState("");
   const products = useSelector((state) => state.dataReducer.products);
-  const location = useLocation();
+  // const location = useLocation();
+  
+  var num = 0;
+  var newObject = {}
 
-  console.log(location.state.email);
-  console.log(prod);
-  const currentProducts = prod.filter((item) => item.email === location.state.email);
-
-  const currentProducts1 = [currentProducts];
-  console.log(currentProducts);
+  // const currentProducts = products.find((item) => item.productId === location.state.id);
   // const navigate = useNavigate();
 
   // console.log(location.state.id);
@@ -39,56 +36,52 @@ export function ViewSku() {
   // const color = currentProducts.color;
   // const Sizes = currentProducts.Sizes;
   
-  // const handleSubmit = (e) => {
-  //   // e.preventDefault();
+  const handleSubmit = (e) => {
+    // e.preventDefault();
     
-  //     // const payload = {
-  //     //   Status: "Stock Updated",
-  //     // };
-  //     // dispatch(updateData(id, payload)).then(() => {
-  //     //   dispatch(getData());
-  //     // });
-  //   // navigate("/viewProduct")
-  // };
-  // const handleClick = (id,col,item,i) =>{
-  //   const aman = id+"/"+col+"/"+item;
+      const payload = {
+        Status: "Stock Updated",
+      };
+      dispatch(updateData(id, payload)).then(() => {
+        dispatch(getData());
+      });
+    // navigate("/viewProduct")
+  };
+  const handleClick = (id,col,item,i) =>{
+    const aman = id+"/"+col+"/"+item;
 
-  //   console.log(newObject[i]);
+    console.log(newObject[i]);
 
-  //   if(newObject[i]){
+    if(newObject[i]){
   
-  //   var quant = newObject[i].value
-  // }
-  //   const data = new FormData();
+    var quant = newObject[i].value
+  }
+    const data = new FormData();
 
-  //   if(quant){
+    if(quant){
        
-  //       data.append('productId', id);
-  //       data.append('SKUId', aman);
-  //       data.append('Quantity', quant);
-  //       console.log(data.get('productId'))
+        data.append('productId', id);
+        data.append('SKUId', aman);
+        data.append('Quantity', quant);
+        console.log(data.get('productId'))
         
 
-  //       axios.post('http://localhost:4000/admin5/', data).then(res => {
-  //           console.log(res.status);
-  //           // if (res.data.status === 200) {
-  //               swal("Success", res.data.message, "success");
-  //       });
-  //     }else{
-  //       swal("Quantity can't be empty");
-  //     }
-  // }
+        axios.post('http://localhost:4000/admin5/', data).then(res => {
+            console.log(res.status);
+            // if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
+        });
+      }else{
+        swal("Quantity can't be empty");
+      }
+  }
 
-  const axiosTest = async () => {
-    const response = await axios.get("http://localhost:4000/getOrder")
-    setProd(response.data);
-    console.log(response.data);
-    // console.log(prod);
-  };
-  // axiosTest();
-  useEffect(() => {
-    axiosTest();
-  }, [])
+
+  const handleChange = (e,id) =>{
+    newObject = {...Quantity};
+    newObject[`${id}`] = {value: e.target.value};
+    console.log(newObject)
+  }
 
   
   
@@ -97,7 +90,7 @@ export function ViewSku() {
   return (
     <>
     <br></br>
-      <Heading>Orders</Heading><br></br>
+      <Heading>Product Id :- </Heading><br></br>
 
       <Box
         m="auto"
@@ -112,11 +105,13 @@ export function ViewSku() {
           my={"5"}
           fontSize={["7px", "10px", "12px", "15px"]}
         >  
-        <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>SNo.</Text></Box>
-        <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>SKU ID</Text></Box>
-        <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>Quantity</Text></Box>
-        <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>Amount</Text></Box>
-          {/* <Box mx={"3"}>
+       
+        <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>SKU</Text></Box>
+          <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>Product Color</Text></Box>
+          <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>Product Size</Text></Box>
+          
+          <Box w="18%" ><Text fontSize='1.2em' fontWeight='bold'>Quantity</Text></Box>
+          <Box mx={"3"}>
                   <Button>
 
                     <Icon
@@ -126,12 +121,19 @@ export function ViewSku() {
                      
                     />
                     </Button>
-                </Box> */}
+                </Box>
 
         </Flex>
 
-    {currentProducts.map((item, index) => (
-      
+    {products.map((aman, smriti)=>(
+      <>
+      {aman.color.map((col,index)=> (
+      <>
+        {aman.Sizes[index].map((item, i) => {
+         
+          num = num + 1;
+  
+          return(
           <Flex
             alignItems={"center"}
             textAlign={"center"}
@@ -139,28 +141,24 @@ export function ViewSku() {
             my={"5"}
             fontSize={["7px", "10px", "12px", "15px"]}
           >
-             <Box w="18%" > 
-              {index+1}
-            </Box> 
             
             <Box w="18%" > 
-             {item.skuid}
+            {aman.productId}/{col}/{item}
             </Box> 
-               {/* <Box w="10%"  bg ={col} textColor = 'white' >{col}</Box> */}
+               <Box w="10%"  bg ={col} textColor = 'white' >{col}</Box>
              {/* ))}  */}
-            <Box w="18%" >{item.quantity}</Box>
+            <Box w="18%" >{item}</Box>
             
            
             
-            <Box w= "18%">
-            {/* <form>
+            <Box w= "10%">
+            <form>
                <input type="Number" required key={item._id} placeholder={num} onChange={(e) => handleChange(e,i)} value={Quantity[`${i}`]} className="form-control" style={{ borderColor: 'blue' }} />
-               </form> */}
-               {item.TotalAmount}
+               </form>
                </Box> 
 
            
-            {/* <Box mx={"3"} >
+            <Box mx={"3"} >
                   <Button>
                     <Icon
                           as={CheckIcon}
@@ -170,15 +168,18 @@ export function ViewSku() {
                         />
                     </Button>
                   
-                </Box> */}
+                </Box>
 
           </Flex>
-
+)})}
+        </>
+        ))}
+        </>
         ))}
         <br></br>
-        {/* <Box>
+        <Box>
         <button type="submit" className="btn btn-primary " style={{marginLeft : '90%'}} onClick={handleSubmit}>Update Details</button></Box>
-         */}
+        
       </Box>
 
     </>

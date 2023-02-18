@@ -17,19 +17,25 @@ import Authentication from "../PrivateRoute/Authentication";
 import MyAccount from "../Pages/MyAccount";
 import AdminPage from "../Admin/AdminPage";
 import {AddData} from "../Admin/AddModal";
-import { useDispatch} from "react-redux";
-import ProductPage from "../Admin/products/viewProduct";
-import Stockpage from "../Admin/products/StockPage";
 // import { AddData } from "./AddModal";
-import { getData } from "../redux/DataReducer/action";
-import StockPage from "../Admin/products/StockPage";
-import { ViewSku } from "../Admin/products/ViewSku";
+// import StockPage from "../Admin/products/StockPage";
 import AdminPage1 from "../Admin/products/banner";
 import CouponPage from "../Admin/CouponPage";
 import AddCoupon from "../Admin/AddCoupon";
-import {MyForm} from "../Admin/Instagram"; 
 
 // import Editor from "../Admin/textEditor";
+import OrderPage from "../Admin/products/orderManagement";
+import { useDispatch} from "react-redux";
+import ProductPage from "../Admin/products/viewProduct";
+// import {Stockpage1} from "../Admin/products/StockPage1";
+// import { StockPage1 } from "../Admin/products/StockPage1";
+import { getData } from "../redux/DataReducer/action";
+import StockPage2 from "../Admin/products/StockPage2";
+import { ViewSku } from "../Admin/products/ViewSku";
+import { ViewDetails } from "../Admin/products/viewDetails";
+import { MyForm } from "../Admin/Instagram";
+import SendMail from "../Admin/products/sendMail";
+// import {Banner} from "../Admin/products/banner"
 const AllRoutes = () => {
   const dispatch = useDispatch();
   return (
@@ -37,23 +43,22 @@ const AllRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/allproducts" element={<AllProducts />} />
-        <Route path="/StockPage" element={<StockPage/>} />
+        {/* <Route path="/StockPage" element={<StockPage/>} /> */}
         <Route path="/banner" element={<AdminPage1 />} />
+        <Route path="/StockPage" element={<StockPage2/>} />
         <Route path="/women" element={<Women />} />
         <Route path="/shoes" element={<AllshoesD />} />
         <Route path="/description/:id" element={<DescriptionPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/viewProduct" element={<ProductPage/>} />
         <Route path ="/viewSku" element={<ViewSku/>} />
+        <Route path ="/orderManagement" element={<OrderPage/>} />
+        <Route path ="/viewDetails" element={<ViewDetails/>} />
+        <Route path ="/Instagram" element={<MyForm/>} />
+        <Route path ="/SendMail" element={<SendMail/>} />
         <Route path="/addproduct" element=
         {<AddProduct/>}
-        // {<AddData
-        //  dispatch={dispatch}
-        //  getData={getData}
-        // />}
         />
-        <Route path ="/Instagram" element={<MyForm/>} />
-
         <Route
           path="/wishlist"
           element={
