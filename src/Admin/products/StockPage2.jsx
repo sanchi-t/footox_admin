@@ -162,7 +162,6 @@ const StockPage2 = () => {
       swal("Quantity can't be empty");
     }
   };
-  console.log(prod);
 
   const handleChange = (e, id) => {
     newObject = { ...Quantity };
@@ -171,6 +170,7 @@ const StockPage2 = () => {
   };
 
   const dispatch = useDispatch();
+  console.log(prod);
   //   const handleshowhide = (e) => {
   //     e.preventDefault();
   //     const getuser = e.target.value;
@@ -180,8 +180,7 @@ const StockPage2 = () => {
   // }
   const axiosTest = async () => {
     const response = await axios.get("http://localhost:4000/getStock");
-    console.log(response);
-    setProd(response.data.users);
+    setProd(response.data);
   };
   useEffect(() => {
     axiosTest();
@@ -276,7 +275,7 @@ const StockPage2 = () => {
       <AdminNavbar />
       <br />
       <Heading>
-        <p style={{ marginRight: "1270px" }}>Stock</p>
+        <p style={{ marginRight: "1100px" }}>Stock</p>
         <p style={mystyle}>
           <AdminUpdate />
         </p>
@@ -293,8 +292,6 @@ const StockPage2 = () => {
           <Box
             m="auto"
             w={"40%"}
-            // boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-            // alignItems={"right"}
             p={"1rem"}
           >
             <Flex
@@ -302,40 +299,10 @@ const StockPage2 = () => {
               textAlign={"center"}
               justifyContent={"stretch"}
               my={"1"}
-              // fontSize={["7px", "10px", "12px", "15px"]}
             >
-              {/* <Text fontSize="2em" fontWeight="bold" color='Highlight' >
-              Filter
-                </Text>
-                <Button colorScheme='messenger' variant='solid'>
-                
-                <Icon
-                  as={SearchIcon}
-                  color="aqua"
-                  bgSize={'2px'}
-                  // aria-label="Filter"
-                  // onClick={() =>
-                  //   handleClick(products.productId, col, item, i)
-                  // }
-                />
-              </Button> */}
               <Container className="rounded border-right-0-dark">
                 <Row>
                   <Col className="rounded border border-dark">
-                    {/* <DropdownButton
-                      id="dropdown-basic-button"
-                      title="Dropdown button"
-                      variant="outline"
-                    >
-                      <Dropdown.Item href="#/action-1">
-                        Product Id
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">SKU ID</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">Quantity</Dropdown.Item>
-                      <Dropdown.Item href="#/action-4">
-                        Product Name
-                      </Dropdown.Item>
-                    </DropdownButton> */}
 
                     <Select
                       //   name="Color"
@@ -359,8 +326,6 @@ const StockPage2 = () => {
                     >
                       <option value="Contains">Contains</option>
                       <option value="Equals">Equals</option>
-                      {/* <option value="SKU ID">SKU ID</option>
-                      <option value="Quantity">Quantity</option> */}
                     </Select>
                   </Col>
                   <Col className="rounded border border-dark">
@@ -372,31 +337,16 @@ const StockPage2 = () => {
                     ></Input>
                   </Col>
 
-                  {/* <Col sm={1} className="square border border-info"> */}
-                  {/* <br/> */}
+                 
                 </Row>
 
-                {/* </Col> */}
+                
               </Container>
-              {/* <Button colorScheme='cyan' variant="outline">
-                <p>&nbsp;</p>
-              <Icon
-                  as={SearchIcon}
-                  color="black"
-                  bgSize={'4px'}
-                  h={'1'}
-                  boxSize={6}
-                  // aria-label="Filter"
-                  // onClick={() =>
-                  //   handleClick(products.productId, col, item, i)
-                  // }
-                />
-                </Button> */}
             </Flex>
           </Box>
           <Spacer />
         </Flex>
-        {/* <br></br> */}
+       
 
         <Box
           m="auto"

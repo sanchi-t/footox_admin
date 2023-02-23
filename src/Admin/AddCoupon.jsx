@@ -13,34 +13,17 @@ import { Switch, SimpleGrid } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
 
 
-// import other pkg
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
 
 
-// import utils
-
-// const setToast = (
-//     toast,
-//     title,
-//     status,
-//     duration = 2000,
-//     description
-//   ) => {
-//     toast({
-//       title,
-//       description,
-//       status,
-//       duration,
-//       isClosable: true,
-//       position: "top",
-//     });
-//   };
 let val = { h: "Add Coupon", status: '', code: '', category: '', startDate: '', endDate: '', type: '', value: '', limit: '' };
 const AddCoupon = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [checked, setChecked]=useState(false);
     const [showhide, setShowhide] = useState('');
+    const [oneCoupon, setOneCoupon] = useState({});
 
 
     const location = useLocation();
@@ -55,8 +38,7 @@ const AddCoupon = () => {
         else{
             setShowhide('');
         }
-        // let data = color;
-        // data.push(e.target.value);
+
 
         console.log(e.target.value);
 
@@ -65,10 +47,19 @@ const AddCoupon = () => {
 
 
 
-    if (location?.state?.mode==='edit') {
+    if (sessionStorage.getItem('id')) {
         if (!isEditted) {
-            dispatch(getOneCoupon(location.state.id, location.state.mode)).then(response => {
+            dispatch(getOneCoupon(sessionStorage.getItem('id'), 'edit')).then(response => {
                 val = response.data[0];
+                setOneCoupon(response.data[0]);
+                if(response.data[0].category==='None'){
+                    setShowhide('None');
+                }
+
+                if(response.data[0].promote===true){
+                    setChecked(true);
+                }
+                
                 val.h = "Edit Coupon";
                 const a=moment(val.startDate).utc().format('YYYY-MM-DD');
                 const b=moment(val.endDate).utc().format('YYYY-MM-DD');
@@ -79,7 +70,7 @@ const AddCoupon = () => {
             });
         }
     }
-
+    console.log(oneCoupon);
 
     // else if(val1?.h==='Add Coupon'){
     //     val=val = { h: "Add Coupon", status: '', code: '', category: '', startDate: '', endDate: '', type: '', value: '', limit: '' };
@@ -89,6 +80,7 @@ const AddCoupon = () => {
     // }
 
 
+    const handleChange=(event)=>setChecked(event.target.checked);
 
 
     const handleSubmit = (event) => {
@@ -105,6 +97,11 @@ const AddCoupon = () => {
         if(showhide!=''){
             x.Id=target.couponProductId.value;
         }
+
+        if(checked!=false){
+            x.title=target.couponTitle.value;
+        }
+        x.promote=checked;
         x.limit = target.CouponLimit.value;
         console.log('sanchitx',x);
 
@@ -121,8 +118,8 @@ const AddCoupon = () => {
         });
         
         val={};
-        target.reset();
-        navigate("/coupon",{state:{mode:'add'}});
+        // target.reset();
+        // navigate("/coupon",{state:{mode:'add'}});
 
     }
     // console.log(errorlist,'errorlist');
@@ -168,13 +165,13 @@ const AddCoupon = () => {
                                             <div className="form-group row mb-3 gx-5 g-0">
                                                 <label className="col-sm-1.5 col-form-label  " style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Coupon Code</p></label>
                                                 <div className='col-sm-8 gx-5 mb-3'>
-                                                    <input type="text" name="couponCode" defaultValue={val.code} className="form-control" style={{ borderColor: 'grey' }} />
+                                                    <input type="text" name="couponCode" defaultValue={oneCoupon?.code} className="form-control" style={{ borderColor: 'grey' }} />
                                                     {/* <small className="text-danger">{'errorlist.productName'}</small> */}
                                                 </div>
 
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'initial' }}>Discount Value</p></label>
                                                 <div className='col-sm-8 '>
-                                                    <input type="text" name="DiscountValue" defaultValue={val.value} className="form-control" style={{ borderColor: 'grey' }} />
+                                                    <input type="text" name="DiscountValue" defaultValue={oneCoupon?.value} className="form-control" style={{ borderColor: 'grey' }} />
                                                     {/* <small className="text-danger">{'errorlist.productId'}</small> */}
                                                 </div>
                                             </div>
@@ -183,7 +180,7 @@ const AddCoupon = () => {
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Coupon Type </p></label>
                                                 <div className='col-sm-8 mb-3'>
 
-                                                <Select name='couponType' className="form-control" style={{ borderColor: 'grey' }} placeholder="--Select Type--">
+                                                <Select name='couponType' defaultValue={oneCoupon?.type} key={oneCoupon?.type} className="form-control" style={{ borderColor: 'grey' }} placeholder={oneCoupon?.type?'':"--Select Type--"}>
                                                     {/* <option value="">--Select Color--</option> */}
                                                     <option value="percentage">Percentage</option>
                                                     <option value="fixed amount">Fixed Amount</option>
@@ -195,7 +192,7 @@ const AddCoupon = () => {
                                                 </div>
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'initial' }}>Coupon Status</p></label>
                                                 <div className='col-sm-8'>
-                                                <Select name='couponStatus' className="form-control" style={{ borderColor: 'grey' }} placeholder="--Select Status--">
+                                                <Select name='couponStatus' defaultValue={oneCoupon?.status} key={oneCoupon?.status} className="form-control" style={{ borderColor: 'grey' }} placeholder={oneCoupon?.type?'':"--Select Type--"}>
                                                     {/* <option value="">--Select Color--</option> */}
                                                     <option value="Active">Active</option>
                                                     <option value="In-Active">In-Active</option>
@@ -204,14 +201,24 @@ const AddCoupon = () => {
                                                 </Select>
                                                     {/* <small className="text-danger">{'errorlist.original_price'}</small> */}
                                                 </div>
+                                                <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px',paddingTop:'23px',width:'280px',paddingRight:'0px' }}><p style={{ textAlign: 'initial' }}>Promote On Website</p></label>
+                                                <input style={{float:'left',width:'15px',height:'15px',position:'relative',top:'30px'}}  onChange={handleChange} checked={oneCoupon?.promote} type="checkbox" id="cb01" />
+                                                {
+                                                    checked !== false && (<>
+                                                <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Title</p></label>
+                                                <div className='col-sm-8 mb-3'>
+                                                <input name="couponTitle" className='form-control' defaultValue={oneCoupon?.title} key={val?.title} style={{ borderColor: 'grey' }} type="text" />
+                                                    {/* <small className="text-danger">{'errorlist.Gender'}</small> */}
+                                                </div></>)}
                                             </div>
+                                            
                                         </div>
                                         <div className='col'>
                                         <div className="form-group row mb-3 gx-5 g-0">
                                         
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Limit</p></label>
                                                 <div className='col-sm-8 mb-3'>
-                                                    <input type="text" name="CouponLimit" defaultValue={val.limit} className="form-control" style={{ borderColor: 'grey' }} />
+                                                    <input type="text" name="CouponLimit" defaultValue={oneCoupon.limit} className="form-control" style={{ borderColor: 'grey' }} />
                                                     {/* <small className="text-danger">{'errorlist.Gender'}</small> */}
                                                 </div>
 
@@ -219,7 +226,7 @@ const AddCoupon = () => {
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'initial' }}>Start Date</p></label>
 
                                                 <div className='col-sm-8'>
-                                                <input className='form-control' defaultValue={val.startDate} key={val.startDate} style={{ borderColor: 'grey' }} type="date" name="StartDate"/>
+                                                <input className='form-control' defaultValue={oneCoupon.startDate} key={oneCoupon.startDate} style={{ borderColor: 'grey' }} type="date" name="StartDate"/>
                                                     {/* <small className="text-danger">{'errorlist.category'}</small> */}
                                                 </div>
                                             </div>
@@ -227,7 +234,7 @@ const AddCoupon = () => {
                                             <div className="form-group row mb-5 gx-5 g-0">
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left'}}>End Date</p></label>
                                                 <div className='col-sm-8 mb-3' style={{paddingBottom:'2.5px'}}>
-                                                <input className='form-control' defaultValue={val.endDate} key={val.endDate} style={{ borderColor: 'grey' }} type="date" name="EndDate"/>
+                                                <input className='form-control' defaultValue={oneCoupon.endDate} key={val.endDate} style={{ borderColor: 'grey' }} type="date" name="EndDate"/>
                                                     {/* <small className="text-danger">{'errorlist.Gender'}</small> */}
                                                 </div>
 
@@ -235,24 +242,24 @@ const AddCoupon = () => {
                                                 <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'initial' }}>Coupon Category</p></label>
 
                                                 <div className='col-sm-8'>
-                                                <Select name='discountCategory' onChange={(e) => (handleshowhide(e))} className="form-control" style={{ borderColor: 'grey' }} placeholder="--Select Category--">
+                                                <Select name='discountCategory' defaultValue={oneCoupon?.category} key={oneCoupon?.category}  onChange={(e) => (handleshowhide(e))} className="form-control" style={{ borderColor: 'grey' }} placeholder={oneCoupon?.category?'':"--Select Type--"}>
                                                     {/* <option value="">--Select Color--</option> */}
-                                                    <option value="All">All</option>
-                                                    <option value="None">None</option>
-                                                    <option value="Shoes">Shoes</option>
+                                                    <option value="All" >All</option>
+                                                    <option value="None" >None</option>
+                                                    <option value="Shoes" >Shoes</option>
                                                     <option value="Jeans">Jeans</option>
-                                                    <option value="Men's">Men's</option>
+                                                    <option value="Men's" >Men's</option>
                                                     <option value="Women's">Women's</option>
                                                 </Select>
                                                     {/* <small className="text-danger">{'errorlist.category'}</small> */}
-                                                </div>
+                                                </div >
                                                 {
-                                                    showhide !== '' && (<>
-                                                <label className="col-sm-1.5 col-form-label" style={{ fontSize: '20px' }}><p style={{ textAlign: 'left' }}>Product Id</p></label>
+                                                    showhide !== '' && (<div>
+                                                <label className="col-sm-1.5 col-form-label" style={{ paddingTop:'23px',fontSize: '20px',float:'left' }}><p style={{ textAlign: 'left' }}>Product Id</p></label>
                                                 <div className='col-sm-8 mb-3'>
-                                                <input className='form-control' defaultValue={val.couponProductId} key={val.endDate} style={{ borderColor: 'grey' }} type="text" name="couponProductId"/>
+                                                <input className='form-control' defaultValue={oneCoupon?.Id} style={{ borderColor: 'grey' }} type="text" name="couponProductId"/>
                                                     {/* <small className="text-danger">{'errorlist.Gender'}</small> */}
-                                                </div></>)}
+                                                </div></div>)}
                                             </div>
 
                                         </div>

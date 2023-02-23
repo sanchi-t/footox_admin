@@ -7,6 +7,8 @@ import { deleteCoupon, getCoupon } from "../redux/DataReducer/action";
 import AdminNavbar from "./AdminNavbar";
 import { DeleteIcon, Icon,EditIcon } from "@chakra-ui/icons";
 const CouponPage = () => {
+
+    sessionStorage.removeItem('id');
     const [isLargerThan] = useMediaQuery("(min-width: 468px)");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,7 +23,8 @@ const CouponPage = () => {
   };
 
   const editCoupons = (id) => {
-    console.log('before',id)
+    console.log('before',id);
+    sessionStorage.setItem('id',id);
     navigate("/couponAdd",{state:{id:id,mode:'edit'}});
   };
 

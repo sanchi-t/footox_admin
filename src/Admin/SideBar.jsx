@@ -59,46 +59,46 @@ export default function SideBar() {
           <DrawerBody mt={"1rem"}>
             <Stack spacing={"8"}>
               <Box>
-                <Link to="/">Home</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/">Home</Link>
               </Box>
               <Box>
               
               <Menu isLazy>
               <MenuButton>Products</MenuButton>
                   <MenuList>
-                    <MenuItem><Link to="/addproduct">Add products</Link></MenuItem>
-                    <MenuItem><Link to="/viewProduct">Product Details</Link></MenuItem>
+                    <MenuItem><Link style={{ textDecoration: 'none',color:'black' }} to="/addproduct">Add products</Link></MenuItem>
+                    <MenuItem><Link style={{ textDecoration: 'none',color:'black' }} to="/viewProduct">Product Details</Link></MenuItem>
                     {/* <MenuItem>Product edit</MenuItem> */}
                   </MenuList>
 </Menu>
           
               </Box>
               <Box>
-                <Link to="/StockPage">Stock Managment</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/StockPage">Stock Managment</Link>
               </Box>
               <Box>
-                <Link to="/orderManagement">Order Managment</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/orderManagement">Order Managment</Link>
               </Box>
               <Box>
-                <Link to="/Instagram">Instagram Links</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/Instagram">Instagram Links</Link>
               </Box>
               <Box>
-                <Link to="/SendMail">Send Mail</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/SendMail">Send Mail</Link>
               </Box>
               <Box>
-                 <Link to="/banner">Banner</Link>
+                 <Link style={{ textDecoration: 'none',color:'black' }} to="/banner">Banner</Link>
                </Box>
                <Box>
-                 <Link to="/coupon">Coupon List</Link>
+                 <Link style={{ textDecoration: 'none',color:'black' }} to="/coupon">Coupon List</Link>
                </Box>
                <Box>
-                 <Link to="/couponAdd">Add Coupon</Link>
+                 <Link style={{ textDecoration: 'none',color:'black' }} to="/couponAdd">Add Coupon</Link>
                </Box>
               <Box>
-                <Link to="/women">Women's</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/women">Women's</Link>
               </Box>
               <Box>
-                <Link to="/shoes">Shoes</Link>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/shoes">Shoes</Link>
               </Box>
             </Stack>
           </DrawerBody>
