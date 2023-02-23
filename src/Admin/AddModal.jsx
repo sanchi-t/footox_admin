@@ -29,7 +29,7 @@ import FilesUpload from "./uploadFile2";
 import ImageUpload from "./uploadFile";
 import { addData} from "../redux/DataReducer/action";
 import { useState } from "react";
-import App from "./uploadfile1";
+// import App from "./uploadfile1";
   const AddData = ({ dispatch, getData}) => {
     const [productId, setProductId] = useState("");
     const [productName, setProductName] = useState("");

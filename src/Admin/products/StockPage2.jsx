@@ -46,7 +46,7 @@ import {
   SearchIcon,
 } from "@chakra-ui/icons";
 import { AdminUpdate } from "../AdminModal";
-import { ViewDetails } from "./viewDetails";
+// import { ViewDetails } from "./viewDetails";
 import swal from "sweetalert";
 const StockPage2 = () => {
   const [isLargerThan] = useMediaQuery("(min-width: 468px)");
