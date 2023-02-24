@@ -35,7 +35,7 @@ import {
       setCSV(e.target.files[0])
     }
     const axiosTest1 = async () => {
-        const response = await axios.get("http://localhost:4000/count");
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}count`);
         // console.log(response.data)
         setCount(response.data);
       };

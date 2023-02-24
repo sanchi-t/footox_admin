@@ -21,20 +21,33 @@ import {
     const [productName, setProductName] = useState("");
     const [Sizes, setSizes] = useState("");
     const [color, setProductColor] = useState([]);
+    const [originalPrice, setOriginalPrice] = useState('')
     const [productPrice, setProductPrice] = useState("");
+    console.log(originalPrice, 'asdfg')
     var today = new Date(),
  
+     
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     const { isOpen, onOpen, onClose } = useDisclosure();
+    // console.log(Sizes, 'dfg');
+    // const handleColor = (e) =>{
+    //   var aman = e.target.value
+    //   // var array = JSON.parse("[" + e.target.value + "]");
+    //   console.log(aman);
+    // }
     const handleSubmit = (e) => {
       e.preventDefault();
       if (productName && Sizes && color && productPrice) {
+        if(typeof color != 'object' ){
+          color = color.split(",");
+        }
+        // console.log(array, 'color');
         const payload = {
           productName: productName,
-          original_price: Sizes,
+          original_price: originalPrice,
           color: color,
           selling_price: productPrice,
-          UpdatedDate: date,
+          modifiedDate: date,
         };
         dispatch(updateData(id, payload)).then(() => {
           dispatch(getData());
@@ -42,6 +55,7 @@ import {
       }
       setProductColor([]);
       setSizes([]);
+      setOriginalPrice("");
       setProductName("");
       setProductPrice("");
     };
@@ -52,7 +66,8 @@ import {
         if (currentProducts) {
           setProductName(currentProducts.productName);
           setProductColor(currentProducts.color);
-          setSizes(currentProducts.original_price);
+          setOriginalPrice(currentProducts.original_price);
+          setSizes(currentProducts.Sizes);
           setProductPrice(currentProducts.selling_price);
         }
       }
@@ -83,9 +98,9 @@ import {
                 />
                 <FormLabel>Original Price</FormLabel>
                 <Input
-                  placeholder="Sizes"
-                  onChange={(e) => setSizes(e.target.value)}
-                  value={Sizes}
+                  placeholder="original price"
+                  onChange={(e) => setOriginalPrice(e.target.value)}
+                  value={originalPrice}
                 />
                 <FormLabel>Price</FormLabel>
                 <Input

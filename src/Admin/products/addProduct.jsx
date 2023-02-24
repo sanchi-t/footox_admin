@@ -75,7 +75,7 @@ function AddProduct() {
   //     navigate("/viewProduct",{state:{status: "Stock update pending"}});
   // }
   const handleGender = (e) => {
-    // let gen = gender;
+   
     const gen = e.target.value;
     setGender(gen);
   };
@@ -86,10 +86,10 @@ function AddProduct() {
     console.log(img.length);
     // setPicture(e.target.files)
 
-    if (img.length > 4) {
-      swal("warning", "Can't upload more than 4 images");
-    } else if (img.length < 4) {
-      swal("Warning", "Upload 4 images", "warning");
+    if (img.length > 5) {
+      swal("warning", "Can't upload more than 5 images");
+    } else if (img.length < 5) {
+      swal("Warning", "Upload 5 images", "warning");
     } else {
       setPicture(e.target.files);
     }
@@ -149,7 +149,7 @@ function AddProduct() {
 
       formData.append("category", productInput.category);
 
-      axios.post("http://localhost:4000/admin3/", formData).then((res) => {
+      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData).then((res) => {
         console.log(res.status);
         // if (res.data.status === 200) {
         swal("Success", res.data.message, "success");

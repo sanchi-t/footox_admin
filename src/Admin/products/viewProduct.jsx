@@ -45,7 +45,7 @@ const ProductPage = () => {
     formData.append("productId", id);
     console.log(id);
 
-    axios.post("http://localhost:4000/del/", formData).then((res) => {
+    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}del/`, formData).then((res) => {
       console.log(res.status);
       // if (res.data.status === 200) {
       // swal("Success", res.data.message, "success");
@@ -161,11 +161,6 @@ const ProductPage = () => {
               />
             </Box>
             <Box w="15%">{item.productId}</Box>
-            {/* <Box w="15%" >{item.limit===null?'none':item.limit}</Box>
-            <Box w="15%" >{item.type==="percentage" ? '':'₹'}{item.value}{item.type==="percentage" ? '%':''}</Box>
-            <Box w="15%" >{new Date(item.startDate).toDateString()}</Box>
-            <Box w="15%" >{new Date(item.endDate).toDateString()}</Box>
-            <Box w="15%" bg={item.status==="Active" ? '#198754':'#DC3444'}><Text color="white">{item.status}</Text></Box> */}
             {isLargerThan ? <Box w="15%">{item.productName}</Box> : null}
             <Box w="15%">{item.productGender}</Box>
             <Box w="15%">{item.selling_price}</Box>

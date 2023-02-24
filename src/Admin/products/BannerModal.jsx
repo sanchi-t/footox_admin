@@ -17,7 +17,7 @@ import {
   import { EditIcon, Icon } from "@chakra-ui/icons";
 
   
-  export function AdminUpdate({ id,abc, products, dispatch, getBannerData }) {
+  export function AdminUpdate1({ id,abc, products, dispatch, getBannerData }) {
     //console.log('yay5',abc.length);
 
     const [productName, setProductName] = useState("");
@@ -31,7 +31,7 @@ import {
     const handleSubmit = (e) => {
       e.preventDefault();
       let target = e.target;
-      if (abc.length===1) {
+      if (abc?.length===1) {
         const payload = {
           name: productName,
           images: [`${target.link0.value}`],
@@ -41,7 +41,7 @@ import {
           dispatch(getBannerData());
         });
       }
-      else if(abc.length===5) {
+      else if(abc?.length===5) {
 
         const payload = {
           name: productName,

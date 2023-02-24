@@ -26,7 +26,7 @@ export default class FilesUpload extends Component {
         for (const key of Object.keys(this.state.imgCollection)) {
             formData.append('imgCollection', this.state.imgCollection[key])
         }
-        axios.post('http://localhost:4000/admin3/', formData, {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData, {
         }).then(res => {
             console.log(res.data)
         })

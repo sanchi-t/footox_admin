@@ -1,10 +1,12 @@
 import * as types from "./actionType";
 import axios from "axios";
 
+const BackendServer = process.env.REACT_APP_BACKEND_SERVER
+
 const getData = (params) => (dispatch) => {
   dispatch({ type: types.GET_DATA_R });
   return axios
-    .get("http://localhost:4000/admin1", params)
+    .get(`${BackendServer}admin1`, params)
     .then((res) => {
       dispatch({ type: types.GET_DATA_S, payload: res.data });
     })
@@ -17,7 +19,7 @@ const getData = (params) => (dispatch) => {
 const updateData = (id, payload) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios.post
-    (`http://localhost:4000/admin1/`, {id,payload},{
+    (`${BackendServer}admin1/`, {id,payload},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -34,7 +36,7 @@ const updateData = (id, payload) => (dispatch) => {
 const deleteData = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
-    .post(`http://localhost:4000/admin1`,{id},{
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}admin1`,{id},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -50,7 +52,7 @@ const deleteData = (id) => (dispatch) => {
 const addData = (details) => (dispatch) => {
   dispatch({ type: types.Add_DATA_R });
   return axios.post
-    (`http://localhost:4000/admin2/`, {details},{
+    (`${process.env.REACT_APP_BACKEND_SERVER}admin2/`, {details},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -74,7 +76,7 @@ const addData = (details) => (dispatch) => {
 const getCoupon = (params) => (dispatch) => {
   dispatch({ type: types.GET_DATA_R });
   return axios
-    .get("http://localhost:4000/coupon", params)
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}coupon`, params)
     .then((res) => {
       dispatch({ type: types.GET_DATA_S, payload: res.data });
     })
@@ -87,7 +89,7 @@ const getCoupon = (params) => (dispatch) => {
 const updateCoupon = (id, payload) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios.post
-    (`http://localhost:4000/coupon`, {id,payload},{
+    (`${process.env.REACT_APP_BACKEND_SERVER}coupon`, {id,payload},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -103,7 +105,7 @@ const updateCoupon = (id, payload) => (dispatch) => {
 const getOneCoupon = (id,mode) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios.post
-    (`http://localhost:4000/couponOne`, {id,mode},{
+    (`${process.env.REACT_APP_BACKEND_SERVER}couponOne`, {id,mode},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -119,7 +121,7 @@ const getOneCoupon = (id,mode) => (dispatch) => {
 const deleteCoupon = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
-    .delete(`http://localhost:4000/coupon/${id}`)
+    .delete(`${process.env.REACT_APP_BACKEND_SERVER}coupon/${id}`)
     .then((res) => {
       dispatch({ type: types.DELETE_DATA_S });
     })
@@ -133,7 +135,7 @@ const addCoupon = (details) => (dispatch) => {
 
   dispatch({ type: types.Add_DATA_R });
   return axios.post
-    (`http://localhost:4000/coupon`, {details},{
+    (`${process.env.REACT_APP_BACKEND_SERVER}coupon`, {details},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -152,7 +154,7 @@ const addCoupon = (details) => (dispatch) => {
 const getBannerData = (params) => (dispatch) => {
   dispatch({ type: types.GET_DATA_R });
   return axios
-    .get("http://localhost:4000/banner", params)
+    .get(`${process.env.REACT_APP_BACKEND_SERVER}banner`, params)
     .then((res) => {
       dispatch({ type: types.GET_DATA_S, payload: res.data });
     })
@@ -164,7 +166,7 @@ const getBannerData = (params) => (dispatch) => {
 const updateBannerData = (id, payload) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios.post
-    (`http://localhost:4000/banner`, {id,payload},{
+    (`${process.env.REACT_APP_BACKEND_SERVER}banner`, {id,payload},{
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }

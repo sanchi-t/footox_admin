@@ -8,7 +8,7 @@ function SendMail() {
 	const handleSend = async (e) => {
 		setSent(true)
 		try {
-			await axios.post("http://localhost:4000/sendmail", {
+			await axios.post(`${process.env.REACT_APP_BACKEND_SERVER}sendmail`, {
 				text
 			})
 		} catch (error) {

@@ -34,7 +34,7 @@ export function ViewSku() {
  
 
   const axiosTest = async () => {
-    const response = await axios.get("http://localhost:4000/getOrder")
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getOrder`)
     setProd(response.data);
     console.log(response.data,'aman');
     // console.log(prod);

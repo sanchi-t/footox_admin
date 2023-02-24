@@ -3,7 +3,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteData, getBannerData } from "../../redux/DataReducer/action";
-import { AdminUpdate } from "../AdminModal";
+// import { AdminUpdate1 } from "../AdminModal";
+import { AdminUpdate1 } from "./BannerModal";
 import AdminNavbar from "../AdminNavbar";
 import { DeleteIcon, Icon } from "@chakra-ui/icons";
 
@@ -62,8 +63,9 @@ const Banner = () => {
                   </Button>
                 </Box>
                 <Box mx={"3"}>
-                  <AdminUpdate
+                  <AdminUpdate1
                     id={item.id}
+                    abc={item.images}
                     products={products}
                     dispatch={dispatch}
                     getBannerData={getBannerData}

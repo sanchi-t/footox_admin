@@ -106,7 +106,7 @@ import { Select } from "@chakra-ui/react";
       // data.append("Status", "Order Shipped");
         console.log(val);
 
-        const update = axios.put("http://localhost:4000/updateOrder", aman).then((res) => {
+        const update = axios.put(`${process.env.REACT_APP_BACKEND_SERVER}updateOrder`, aman).then((res) => {
           console.log(res.data);
           // if (res.data.status === 200) {
           swal("Success", val, "success").then(()=>{
@@ -117,7 +117,7 @@ import { Select } from "@chakra-ui/react";
 
       }
     const axiosTest = async () => {
-        const response = await axios.get("http://localhost:4000/getOrder");
+        const response = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getOrder`);
         setProd(response.data);
       };
       useEffect(() => {

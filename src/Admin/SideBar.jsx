@@ -82,9 +82,9 @@ export default function SideBar() {
               <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/Instagram">Instagram Links</Link>
               </Box>
-              <Box>
+              {/* <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/SendMail">Send Mail</Link>
-              </Box>
+              </Box> */}
               <Box>
                  <Link style={{ textDecoration: 'none',color:'black' }} to="/banner">Banner</Link>
                </Box>
@@ -94,12 +94,12 @@ export default function SideBar() {
                <Box>
                  <Link style={{ textDecoration: 'none',color:'black' }} to="/couponAdd">Add Coupon</Link>
                </Box>
-              <Box>
+              {/* <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/women">Women's</Link>
               </Box>
               <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/shoes">Shoes</Link>
-              </Box>
+              </Box> */}
             </Stack>
           </DrawerBody>
 

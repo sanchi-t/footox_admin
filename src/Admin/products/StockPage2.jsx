@@ -124,13 +124,13 @@ const StockPage2 = () => {
       data.append("Quantity", quant);
       
 
-      const updatedDataResponse = await axios.put("http://localhost:4000/admin5/",data).then((res) => {
+      const updatedDataResponse = await axios.put(`${process.env.REACT_APP_BACKEND_SERVER}admin5/`,data).then((res) => {
         console.log(res.status);
         // if (res.data.status === 200) {
         swal("Success", res.data.message, "success")
       });
 
-      const responses = await axios.get("http://localhost:4000/getStock");
+      const responses = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getStock`);
       console.log('sd', responses.data);
 
       // setPFQ(responses.data);
@@ -179,7 +179,7 @@ const StockPage2 = () => {
 
   // }
   const axiosTest = async () => {
-    const response = await axios.get("http://localhost:4000/getStock");
+    const response = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getStock`);
     setProd(response.data);
   };
   useEffect(() => {

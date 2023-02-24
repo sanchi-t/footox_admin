@@ -29,7 +29,7 @@ const ImageUpload = () =>{
 		// dispatch(addImage(formData)).then(() => {
         //   dispatch(getData());
         // });
-		const url = 'http://localhost:4000/admin3/'
+		const url = `${process.env.REACT_APP_BACKEND_SERVER}admin3/`
 		axios.post(url, formData).then=((res)=>
 		{
 			console.log(res.data)

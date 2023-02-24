@@ -48,7 +48,7 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
 
   // }, 500); 
   const axiosTest1 = async () => {
-    axios.get("http://localhost:4000/count").then(data=>{
+    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}count`).then(data=>{
       setCount(data.data);
       alert('Total Rows: '+data.data[data.data.length-2]+ "       Inserted Rows: " + data.data[data.data.length-1]);
   })};
@@ -73,7 +73,7 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
     // console.log(response.data)
    
 
-        axios.post('http://localhost:4000/admin5/', CSVData).then(res => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin5/`, CSVData).then(res => {
             console.log(res.status);
             if(res.status===200){
             

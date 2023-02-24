@@ -28,7 +28,7 @@ export function MyForm() {
         data1.append('link3', linkInput.link3);
 
         console.log(data1.get('link1'));
-        axios.post('http://localhost:4000/links/', data1).then(res => {
+        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}links/`, data1).then(res => {
             console.log(res.status);
         
                 alert("Success", res.data.message, "success");
