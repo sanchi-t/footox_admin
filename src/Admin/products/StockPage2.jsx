@@ -171,6 +171,7 @@ const StockPage2 = () => {
 
   const dispatch = useDispatch();
   console.log(prod);
+  console.log(products, 'amanaa123');
   //   const handleshowhide = (e) => {
   //     e.preventDefault();
   //     const getuser = e.target.value;
@@ -191,15 +192,15 @@ const StockPage2 = () => {
   }, [dispatch]);
 
   {
-    filteredProducts.length >= 0 && (
-      <>
+    
         {products.map((products, num1) => (
           <>
+          
             {products.color.map((col, index) => (
               <>
                 {products.Sizes[index].map((item, i) => {
                   num = num + 1;
-
+                  // console.log(products, num1);
                   var aman = num;
 
                   var sku = products.productId + "/" + col + "/" + item;
@@ -220,8 +221,7 @@ const StockPage2 = () => {
             ))}
           </>
         ))}
-      </>
-    );
+     
   }
 
   const filteredProducts2 = filteredProducts1.filter((items) => {
@@ -269,6 +269,7 @@ const StockPage2 = () => {
       }
     }
   });
+  console.log(filteredProducts2, 'amanaa');
 
   return (
     <>

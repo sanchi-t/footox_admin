@@ -156,7 +156,7 @@ const ProductPage = () => {
             <Box width={"15%"} mx={"2"}>
               <Image
                 width={"100%"}
-                src={item.image[0]}
+                src={item.image[0][0]}
                 alt={item.productName}
               />
             </Box>
