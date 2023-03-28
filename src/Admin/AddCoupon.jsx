@@ -11,8 +11,6 @@ import moment from "moment";
 import AdminNavbar from './AdminNavbar';
 import { Switch, SimpleGrid } from '@chakra-ui/react'
 import { Select } from '@chakra-ui/react'
-
-
 import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
 

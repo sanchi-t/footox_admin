@@ -29,6 +29,7 @@ import { useDispatch} from "react-redux";
 import ProductPage from "../Admin/products/viewProduct";
 // import {Stockpage1} from "../Admin/products/StockPage1";
 // import { StockPage1 } from "../Admin/products/StockPage1";
+import OfferBanner from "../Admin/AddOfferBanner";
 import { getData } from "../redux/DataReducer/action";
 import StockPage2 from "../Admin/products/StockPage2";
 import { ViewSku } from "../Admin/products/ViewSku";
@@ -52,6 +53,7 @@ const AllRoutes = () => {
         {/* <Route path="/cart" element={<Cart />} /> */}
         <Route path="/viewProduct" element={<ProductPage/>} />
         <Route path ="/viewSku" element={<ViewSku/>} />
+        <Route path ="/offerBanner" element={<OfferBanner/>} />
         <Route path ="/orderManagement" element={<OrderPage/>} />
         {/* <Route path ="/viewDetails" element={<ViewDetails/>} /> */}
         <Route path ="/Instagram" element={<MyForm/>} />

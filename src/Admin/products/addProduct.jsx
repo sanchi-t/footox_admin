@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-import { useDispatch } from "react-redux";
+import {
+  deleteCoupon,
+  getCoupon,
+  getData,
+  deleteData,
+  updateData,
+} from "../../redux/DataReducer/action";
+import { useDispatch,useSelector } from "react-redux";
 import { Switch, FormLabel, FormControl, SimpleGrid } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
 // import {useNavigate} from 'react-router-dom';
@@ -17,13 +23,17 @@ import AdminNavbar from "../AdminNavbar";
 function AddProduct() {
   const [check, setCheckbox] = useState([]);
   const [color, setColor] = useState([]);
+  const [ids, setIds] = useState([]);
+
   const [showhide, setShowhide] = useState("");
   const [gender, setGender] = useState("");
+ 
   const mystyle = {
     padding: "10px",
     // fontFamily: "Arial"
     float: "left",
   };
+  const products = useSelector((state) => state.dataReducer.products);
   var img = [];
   const state = {
     button: 1,
@@ -42,6 +52,14 @@ function AddProduct() {
       ["clean"],
     ],
   };
+  useEffect(() => {
+    dispatch(getData());
+  }, [dispatch]);
+  
+  // useEffect(() => {
+  //   axiosTest();
+  // }, []);
+
 
   const [productInput, setProduct] = useState({
     product_id: "",
@@ -133,6 +151,7 @@ function AddProduct() {
       formData.append("productName", productInput.productName);
       formData.append("productGender", gender);
       formData.append("description", productDescription);
+      console.log(productDescription, 'sdfghjkl');
       formData.append("CurrentDate", date);
       formData.append("UpdatedDate", date);
       for (const key of Object.keys(color)) {
@@ -143,12 +162,16 @@ function AddProduct() {
       formData.append("Status", "Stock update Pending!");
       formData.append("Quantity", 0);
       console.log(sizes);
-      for (const key of Object.keys(sizes)) {
-        formData.append("Sizes", sizes[key]);
+      for(let i = 0; i< sizes.length; i++){
+        formData.append("Sizes[]", sizes[i]);
+      }
+
+      for(let i = 0 ; i< products.length; i++){
+        ids.push(products[i].productId);
       }
 
       formData.append("category", productInput.category);
-
+      if(!ids.includes(productInput.productId)){
       axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData).then((res) => {
         console.log(res.status);
         // if (res.data.status === 200) {
@@ -166,6 +189,9 @@ function AddProduct() {
         setError([]);
         console.log(formData);
       });
+    }else{
+      swal("Warning", "Product Id already exit", 'warning');
+    }
     } else if (state.button === 2) {
       let shoeSize = sizes;
       const check1 = [...check];

@@ -89,6 +89,9 @@ export default function SideBar() {
                  <Link style={{ textDecoration: 'none',color:'black' }} to="/banner">Banner</Link>
                </Box>
                <Box>
+                <Link style={{ textDecoration: 'none',color:'black' }} to="/offerBanner">Offer Banner</Link>
+              </Box>
+               <Box>
                  <Link style={{ textDecoration: 'none',color:'black' }} to="/coupon">Coupon List</Link>
                </Box>
                <Box>
