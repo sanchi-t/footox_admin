@@ -1,14 +1,27 @@
-import React from "react";
+// import React from "react";
 import { useSelector } from "react-redux";
+import { useState, useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-
-const Authentication = ({ children }) => {
+import {AuthContext } from "../Admin/Context/authProvider"
+ function PrivateRoute({children}) {
+  const { isLoggedIn } = useContext(AuthContext);
+  var userInfo = localStorage.getItem('userInfo');
+   userInfo = JSON.parse(userInfo);
+   const loggedIn = userInfo?.loggedIn ? userInfo?.loggedIn : false;
   const location = useLocation();
-  const auth = useSelector((store) => store.AuthReducer.isAuth);
-  if (!auth) {
-    return <Navigate to="/login" replace state={{ from: location }} />;
+  console.log(loggedIn,"asdfghj");
+   if (!loggedIn) {
+    return <Navigate to="/" replace state={{ from: location }} />;
   }
   return children;
+
+  // const location = useLocation();
+  // const auth = useSelector((store) => store.AuthReducer.isAuth);
+  // if (!auth) {
+  //   return <Navigate to="/" replace state={{ from: location }} />;
+  // }
+  // return children;
 };
 
-export default Authentication;
+export default PrivateRoute;
+

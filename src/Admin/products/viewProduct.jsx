@@ -31,7 +31,7 @@ import {
 } from "../../redux/DataReducer/action";
 import AdminNavbar from "../AdminNavbar";
 // const AdminNavbar = lazy(()=>import("../AdminNavbar"))
-import { AdminUpdate } from "./ViewSku";
+import { AdminUpdate } from "../Users";
 import { DeleteIcon, Icon, EditIcon, ArrowForwardIcon } from "@chakra-ui/icons";
 import { ProductUpdate } from "./editProduct1";
 const ProductPage = () => {
@@ -47,6 +47,7 @@ const ProductPage = () => {
   // const status = location.state.status;
   // const id = location.state.id
   const products = useSelector((state) => state.dataReducer.products);
+  console.log(products, 'asdfgh');
   const textStyle = {
     borderColor: "grey",
     textAlign: "center",
@@ -341,18 +342,11 @@ const ProductPage = () => {
                   </Button>
                 </Box>
                 <Box mx={"3"}>
-                  {/* <Button> */}
-                  {/* <Icon
-                          as={EditIcon}
-                          color="Green"
-                          // onClick={()=>handleClick(item.productId)}
-                        /> */}
                   <ProductUpdate
                     id={item.productId}
                     products={products}
                     dispatch={dispatch}
                   />
-                  {/* </Button> */}
                 </Box>
               </Flex>
             </Box>

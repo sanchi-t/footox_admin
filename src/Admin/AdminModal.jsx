@@ -68,10 +68,7 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
    
        
         CSVData.append('CSVFile', CSV);
-        // axiosTest1();
-        
-    // console.log(response.data)
-   
+      
 
         axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin5/`, CSVData).then(res => {
             console.log(res.status);
@@ -90,7 +87,7 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
 
   return (
     <>
-      <Button colorScheme='teal' variant='outline' onClick={onOpen}>
+      <Button colorScheme='teal' variant='outline' onClick={onOpen} style={{float: "right", marginRight: "3em"}}>
         Bulk Upload
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -100,7 +97,6 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit} enctype="multipart/form-data">
-              {/* <FormLabel>Name</FormLabel> */}
               <input
                 type={'file'}
                 

@@ -22,6 +22,7 @@ const Banner = () => {
     console.log('admin?');
     dispatch(getBannerData());
   }, [dispatch]);
+  console.log(products);
 
   return (
     <>

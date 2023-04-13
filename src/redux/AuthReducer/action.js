@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setToast } from "../../components/Other/CheckProperty";
+// import { setToast } from ;
 import { saveLocalData } from "../../utils/localStorage";
 import * as types from "./actionType";
 
@@ -8,28 +8,45 @@ const register = (payload, toast) => (dispatch) => {
   return axios
     .post(`${process.env.REACT_APP_BACKEND_SERVER}signup`, payload)
     .then((r) => {
-      console.log(r.data)
-      setToast(toast, "Registered Successful", "success");
+      console.log(r.data);
+      // setToast(toast, "Registered Successful", "success");
       dispatch({ type: types.REGISTER_S, payload: r.data });
     })
     .catch((e) => {
-      setToast(toast, e.response.data.message, "error");
+      // setToast(toast, e.response.data.message, "error");
       dispatch({ type: types.REGISTER_F, payload: e });
     });
 };
 
+// const login = (payload, toast) => (dispatch) => {
+//   console.log(payload)
+//   saveLocalData("userInfo", payload.email)
+//   dispatch({ type: types.LOGIN_R });
+//   return axios
+//     .post(`${process.env.REACT_APP_BACKEND_SERVER}adminLogin`, payload)
+//     .then((r) => {
+//       // setToast(toast, "Login Successful", "success");
+//       console.log(r.data);
+//       dispatch({ type: types.LOGIN_S, payload: r.data.token });
+//     })
+//     .catch((e) => {
+//       // setToast(toast, e.response.data.message, "error");
+//       dispatch({ type: types.LOGIN_F, payload: e });
+//     });
+// };
 const login = (payload, toast) => (dispatch) => {
-  console.log(payload)
-  saveLocalData("userInfo", payload.email)
+  console.log(payload, "entery");
+  // saveLocalData("userInfo",  payload.name)
+
   dispatch({ type: types.LOGIN_R });
   return axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}login`, payload)
+    .post(`${process.env.REACT_APP_BACKEND_SERVER}adminLogin`, payload)
     .then((r) => {
-      setToast(toast, "Login Successful", "success");
-      dispatch({ type: types.LOGIN_S, payload: r.data.token });
+      localStorage.setItem("userInfo", JSON.stringify(r.data));
+      return dispatch({ type: types.LOGIN_S, payload: r.data });
     })
     .catch((e) => {
-      setToast(toast, e.response.data.message, "error");
+      // setToast(toast, e.response.data.msg, "error");
       dispatch({ type: types.LOGIN_F, payload: e });
     });
 };
@@ -52,7 +69,6 @@ const profile = (payload) => (dispatch) => {
 };
 
 export { login, register, profile };
-
 
 // const login = (payload,toast) => (dispatch) => {
 //   //console.log(payload)

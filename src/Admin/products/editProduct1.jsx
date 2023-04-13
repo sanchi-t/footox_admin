@@ -29,12 +29,7 @@ import {
      
     date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
     const { isOpen, onOpen, onClose } = useDisclosure();
-    // console.log(Sizes, 'dfg');
-    // const handleColor = (e) =>{
-    //   var aman = e.target.value
-    //   // var array = JSON.parse("[" + e.target.value + "]");
-    //   console.log(aman);
-    // }
+  
     const handleSubmit = (e) => {
       e.preventDefault();
       if (productName && Sizes && color && productPrice) {
@@ -45,12 +40,12 @@ import {
         const payload = {
           productName: productName,
           original_price: originalPrice,
-          color: color,
           selling_price: productPrice,
           modifiedDate: date,
         };
         dispatch(updateData(id, payload)).then(() => {
           dispatch(getData());
+          console.log('hello')
         });
       }
       setProductColor([]);
@@ -90,19 +85,14 @@ import {
                   onChange={(e) => setProductName(e.target.value)}
                   value={productName}
                 />
-                <FormLabel>Color</FormLabel>
-                <Input
-                  placeholder="Color"
-                  onChange={(e) => setProductColor(e.target.value)}
-                  value={color}
-                />
+          
                 <FormLabel>Original Price</FormLabel>
                 <Input
                   placeholder="original price"
                   onChange={(e) => setOriginalPrice(e.target.value)}
                   value={originalPrice}
                 />
-                <FormLabel>Price</FormLabel>
+                <FormLabel>Selling Price</FormLabel>
                 <Input
                   placeholder="Price"
                   onChange={(e) => setProductPrice(e.target.value)}

@@ -11,25 +11,13 @@ import {
   Box,
   Stack,
   useColorMode,
-  Select
 } from "@chakra-ui/react";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
-} from '@chakra-ui/react'
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch} from "react-redux";
-// import { AddData } from "./AddModal";
-// import StockUpdate from "./products/viewProduct1";
+import { useDispatch } from "react-redux";
 import { getData } from "../redux/DataReducer/action";
 
 export default function SideBar() {
@@ -37,6 +25,7 @@ export default function SideBar() {
   const btnRef = React.useRef();
   const { colorMode } = useColorMode();
   const dispatch = useDispatch();
+
   return (
     <>
       <Button ref={btnRef} onClick={onOpen}>
@@ -59,44 +48,132 @@ export default function SideBar() {
           <DrawerBody mt={"1rem"}>
             <Stack spacing={"8"}>
               <Box>
-                <Link style={{ textDecoration: 'none',color:'black' }} to="/">Home</Link>
+                <Link style={{ textDecoration: "none", color: "black" }} to="/">
+                  Home
+                </Link>
               </Box>
               <Box>
-              
-              <Menu isLazy>
-              <MenuButton>Products</MenuButton>
+                <Menu isLazy>
+                  <MenuButton>Products</MenuButton>
                   <MenuList>
-                    <MenuItem><Link style={{ textDecoration: 'none',color:'black' }} to="/addproduct">Add products</Link></MenuItem>
-                    <MenuItem><Link style={{ textDecoration: 'none',color:'black' }} to="/viewProduct">Product Details</Link></MenuItem>
+                    <MenuItem>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to="/addproduct"
+                      >
+                        Add products
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to="/viewProduct"
+                      >
+                        Product Details
+                      </Link>
+                    </MenuItem>
                     {/* <MenuItem>Product edit</MenuItem> */}
                   </MenuList>
-</Menu>
-          
+                </Menu>
               </Box>
               <Box>
-                <Link style={{ textDecoration: 'none',color:'black' }} to="/StockPage">Stock Managment</Link>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/StockPage"
+                >
+                  Stock Managment
+                </Link>
+              </Box>
+              {/* <Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/orderManagement"
+                >
+                  Order Managment
+                </Link>
+              </Box> */}
+              <Box>
+                <Menu isLazy>
+                  <MenuButton>Order Management</MenuButton>
+                  <MenuList>
+                    <MenuItem>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to="/orderManagement"
+                      >
+                        New Orders
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to="/returnOrders"
+                      >
+                        Return Orders
+                      </Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Link
+                        style={{ textDecoration: "none", color: "black" }}
+                        to="/exchangeOrders"
+                      >
+                        Exchange Orders
+                      </Link>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </Box>
               <Box>
-                <Link style={{ textDecoration: 'none',color:'black' }} to="/orderManagement">Order Managment</Link>
-              </Box>
-              <Box>
-                <Link style={{ textDecoration: 'none',color:'black' }} to="/Instagram">Instagram Links</Link>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/Instagram"
+                >
+                  Instagram Links
+                </Link>
               </Box>
               {/* <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/SendMail">Send Mail</Link>
               </Box> */}
               <Box>
-                 <Link style={{ textDecoration: 'none',color:'black' }} to="/banner">Banner</Link>
-               </Box>
-               <Box>
-                <Link style={{ textDecoration: 'none',color:'black' }} to="/offerBanner">Offer Banner</Link>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/banner"
+                >
+                  Banner
+                </Link>
               </Box>
-               <Box>
-                 <Link style={{ textDecoration: 'none',color:'black' }} to="/coupon">Coupon List</Link>
-               </Box>
-               <Box>
-                 <Link style={{ textDecoration: 'none',color:'black' }} to="/couponAdd">Add Coupon</Link>
-               </Box>
+              <Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/users"
+                >
+                  users
+                </Link>
+              </Box>
+              <Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/offerBanner"
+                >
+                  Offer Banner
+                </Link>
+              </Box>
+              <Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/coupon"
+                >
+                  Coupon List
+                </Link>
+              </Box>
+              <Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  to="/couponAdd"
+                >
+                  Add Coupon
+                </Link>
+              </Box>
               {/* <Box>
                 <Link style={{ textDecoration: 'none',color:'black' }} to="/women">Women's</Link>
               </Box>
@@ -180,7 +257,7 @@ export default function SideBar() {
 //                 <Link to="/Instagram">Instagram Links</Link>
 //               </Box>
 //               <Box>
-              
+
 //               <Menu isLazy>
 //               <MenuButton>Products</MenuButton>
 //                   <MenuList>
@@ -190,12 +267,7 @@ export default function SideBar() {
 //                   </MenuList>
 
 // </Menu>
-                  
-                  
-                  
-              
-            
-                
+
 //               </Box>
 //               <Box>
 //                 <Link to="/StockPage">Stock Managment</Link>

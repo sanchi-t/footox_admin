@@ -5,18 +5,11 @@ import swal from "sweetalert";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import {
-  deleteCoupon,
-  getCoupon,
   getData,
-  deleteData,
-  updateData,
 } from "../../redux/DataReducer/action";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Switch, FormLabel, FormControl, SimpleGrid } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
-// import {useNavigate} from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
-import Form from "react-bootstrap/Form";
 import { Select } from "@chakra-ui/react";
 
 import AdminNavbar from "../AdminNavbar";
@@ -24,10 +17,10 @@ function AddProduct() {
   const [check, setCheckbox] = useState([]);
   const [color, setColor] = useState([]);
   const [ids, setIds] = useState([]);
-
+  const dispatch = useDispatch();
   const [showhide, setShowhide] = useState("");
   const [gender, setGender] = useState("");
- 
+
   const mystyle = {
     padding: "10px",
     // fontFamily: "Arial"
@@ -55,10 +48,6 @@ function AddProduct() {
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-  
-  // useEffect(() => {
-  //   axiosTest();
-  // }, []);
 
 
   const [productInput, setProduct] = useState({
@@ -76,7 +65,7 @@ function AddProduct() {
   const [errorlist, setError] = useState([]);
   const [productDescription, setProductDescription] = useState("");
   const [sizes, setSizes] = useState([]);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   var today = new Date(),
     date =
       today.getFullYear() +
@@ -93,7 +82,6 @@ function AddProduct() {
   //     navigate("/viewProduct",{state:{status: "Stock update pending"}});
   // }
   const handleGender = (e) => {
-   
     const gen = e.target.value;
     setGender(gen);
   };
@@ -126,7 +114,6 @@ function AddProduct() {
   };
 
   const getCheckbox = (e) => {
-    
     const { value, checked } = e.target;
     console.log(`${value} is ${checked}`);
 
@@ -151,7 +138,7 @@ function AddProduct() {
       formData.append("productName", productInput.productName);
       formData.append("productGender", gender);
       formData.append("description", productDescription);
-      console.log(productDescription, 'sdfghjkl');
+      console.log(productDescription, "sdfghjkl");
       formData.append("CurrentDate", date);
       formData.append("UpdatedDate", date);
       for (const key of Object.keys(color)) {
@@ -162,36 +149,38 @@ function AddProduct() {
       formData.append("Status", "Stock update Pending!");
       formData.append("Quantity", 0);
       console.log(sizes);
-      for(let i = 0; i< sizes.length; i++){
+      for (let i = 0; i < sizes.length; i++) {
         formData.append("Sizes[]", sizes[i]);
       }
 
-      for(let i = 0 ; i< products.length; i++){
+      for (let i = 0; i < products.length; i++) {
         ids.push(products[i].productId);
       }
 
       formData.append("category", productInput.category);
-      if(!ids.includes(productInput.productId)){
-      axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData).then((res) => {
-        console.log(res.status);
-        // if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-        setProduct({
-          ...productInput,
-          productId: "",
-          productName: "",
+      if (!ids.includes(productInput.productId)) {
+        axios
+          .post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData)
+          .then((res) => {
+            console.log(res.status);
+            // if (res.data.status === 200) {
+            swal("Success", res.data.message, "success");
+            setProduct({
+              ...productInput,
+              productId: "",
+              productName: "",
 
-          description: "",
-          selling_price: "",
-          original_price: "",
-          category: "",
-        });
-        setError([]);
-        console.log(formData);
-      });
-    }else{
-      swal("Warning", "Product Id already exit", 'warning');
-    }
+              description: "",
+              selling_price: "",
+              original_price: "",
+              category: "",
+            });
+            setError([]);
+            console.log(formData);
+          });
+      } else {
+        swal("Warning", "Product Id already exit", "warning");
+      }
     } else if (state.button === 2) {
       let shoeSize = sizes;
       const check1 = [...check];
@@ -255,7 +244,6 @@ function AddProduct() {
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                
                   <Link
                     to="/viewProduct"
                     className="nav-link"
@@ -266,7 +254,6 @@ function AddProduct() {
                 </li>
 
                 <li className="nav-item" role="presentation">
-                
                   <Link
                     to="/StockPage"
                     className="nav-link"
@@ -307,7 +294,7 @@ function AddProduct() {
                             {errorlist.productName}
                           </small>
                         </div>
-                       
+
                         <label
                           className="col-sm-1.5 col-form-label"
                           style={{ fontSize: "20px" }}
@@ -380,8 +367,6 @@ function AddProduct() {
                           <p style={{ textAlign: "left" }}>Gender</p>
                         </label>
                         <div className="col-sm-8 mb-3">
-                         
-
                           <Select
                             name="Color"
                             className="form-control"
@@ -389,18 +374,15 @@ function AddProduct() {
                             style={{ borderColor: "grey" }}
                             placeholder="--Select Gender--"
                           >
-                           
                             <option value="Men">Men</option>
                             <option value="Women">Women</option>
                             <option value="Universal">Universal</option>
-    
                           </Select>
                           <small className="text-danger">
                             {errorlist.Gender}
                           </small>
                         </div>
 
-                    
                         <label
                           className="col-sm-1.5 col-form-label"
                           style={{ fontSize: "20px" }}
@@ -456,9 +438,8 @@ function AddProduct() {
                   </div>
 
                   <br></br>
-                 
                 </div>
-               
+
                 <div
                   className="tab-pane card-body border fade"
                   id="otherdetails"
@@ -467,7 +448,6 @@ function AddProduct() {
                 >
                   <div className="form-group row">
                     <div className="form-group row">
-                      
                       <div className="col-sm-5">
                         <Select
                           name="Color"
@@ -500,8 +480,6 @@ function AddProduct() {
                             <br />
                             <br />
                           </div>
-
-                          
 
                           <FormControl
                             as={SimpleGrid}
@@ -613,8 +591,6 @@ function AddProduct() {
                             Done
                           </button>
                         </div>
-
-                      
                       </>
                     )}
                   </div>

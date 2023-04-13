@@ -14,14 +14,16 @@ import SideBar from "./SideBar";
 const AdminNavbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+  var userInfo = localStorage.getItem('userInfo');
+   userInfo = JSON.parse(userInfo);
+
 
   const logoutHandler = () => {
     new Promise((res, rej) => {
       res(localStorage.removeItem("token"));
       res(localStorage.removeItem("userInfo"));
     }).then(() => {
-      navigate("/login");
+      navigate("/");
       window.location.reload();
     });
   };
@@ -42,7 +44,7 @@ const AdminNavbar = () => {
               as={Button}
               rightIcon={<AiFillCaretDown />}
             >
-              Aman Jain
+             {userInfo?.name}
             </MenuButton>
             <MenuList>
               <MenuItem as={"Button"} onClick={logoutHandler}>

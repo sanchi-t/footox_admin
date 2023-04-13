@@ -99,8 +99,9 @@ const StockPage2 = () => {
   };
 
   const mystyle = {
-    marginLeft: "1240px",
+    // marginLeft: "34em",
     marginTop: "-45px",
+    position : "relative",
   };
   var len = prod.length;
   // console.log(prod.Quantity);
@@ -276,11 +277,12 @@ const StockPage2 = () => {
       <AdminNavbar />
       <br />
       <Heading>
-        <p style={{ marginRight: "1100px" }}>Stock</p>
-        <p style={mystyle}>
+        Stock
+        {/* <Text style={mystyle}> */}
           <AdminUpdate />
-        </p>
+        {/* </Text> */}
       </Heading>
+      {/* <Heading>Stock</Heading> */}
       {/* <br></br> */}
 
       <Box
@@ -428,10 +430,9 @@ const StockPage2 = () => {
                       className="form-control"
                       style={textStyle}
                     />
-                    {/* placeholder={ prod[i].Quantity!==null ? prod[i].Quantity : '0'} */}
-                    {/* <p contenteditable="true">This is an editable paragraph.</p> */}
+                   
                   </form>
-                  {/* <Box w="15%" bg={item.Status==="Stock Updated" ? '#198754':'#DC3444'}><Text color="white">{item.Status}</Text></Box>  */}
+                 
                 </Box>
 
                 <Box mx={"3"}>
@@ -450,10 +451,9 @@ const StockPage2 = () => {
           })}
 
           <br></br>
-          {/* <Box>
-          <button type="submit" className="btn btn-primary " style={{marginLeft : '90%'}} onClick={handleSubmit}>Update Details</button></Box> */}
+       
         </Box>
-        {/* </Flex> */}
+      
       </Box>
     </>
   );
