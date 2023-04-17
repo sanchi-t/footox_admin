@@ -4,9 +4,7 @@ import { Link } from "react-router-dom";
 import swal from "sweetalert";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import {
-  getData,
-} from "../../redux/DataReducer/action";
+import { getData } from "../../redux/DataReducer/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, FormLabel, FormControl, SimpleGrid } from "@chakra-ui/react";
 import { Heading } from "@chakra-ui/react";
@@ -48,7 +46,6 @@ function AddProduct() {
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
-
 
   const [productInput, setProduct] = useState({
     product_id: "",
@@ -160,7 +157,7 @@ function AddProduct() {
       formData.append("category", productInput.category);
       if (!ids.includes(productInput.productId)) {
         axios
-          .post(`${process.env.REACT_APP_BACKEND_SERVER}admin3/`, formData)
+          .post(`${process.env.REACT_APP_API_BASE_URL}admin3/`, formData)
           .then((res) => {
             console.log(res.status);
             // if (res.data.status === 200) {

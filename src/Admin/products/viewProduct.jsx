@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
-import { lazy } from 'react';
+import { lazy } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import Container from "react-bootstrap/Container";
@@ -47,7 +47,7 @@ const ProductPage = () => {
   // const status = location.state.status;
   // const id = location.state.id
   const products = useSelector((state) => state.dataReducer.products);
-  console.log(products, 'asdfgh');
+  console.log(products, "asdfgh");
   const textStyle = {
     borderColor: "grey",
     textAlign: "center",
@@ -62,15 +62,16 @@ const ProductPage = () => {
     formData.append("productId", id);
     console.log(id);
 
-    axios.post(`${process.env.REACT_APP_BACKEND_SERVER}del/`, formData).then((res) => {
-      console.log(res.status);
-      // if (res.data.status === 200) {
-      // swal("Success", res.data.message, "success");
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}del/`, formData)
+      .then((res) => {
+        console.log(res.status);
+        // if (res.data.status === 200) {
+        // swal("Success", res.data.message, "success");
 
-      console.log(formData.get("productId"));
-    });
+        console.log(formData.get("productId"));
+      });
   };
-
 
   const handleInputFilter = (e) => {
     const add = e.target.value;
@@ -87,7 +88,7 @@ const ProductPage = () => {
     const op = e.target.value;
     setOperator(op);
   };
- 
+
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
@@ -114,12 +115,12 @@ const ProductPage = () => {
           if (items.Quantity === parseInt(InputFilter)) {
             return items;
           }
-        }else if (Attribute === "Status") {
+        } else if (Attribute === "Status") {
           if (items.Quantity === InputFilter) {
             return items;
           }
         }
-      }else if(operator==='Contains'){
+      } else if (operator === "Contains") {
         if (Attribute === "Product Id") {
           if (items.productId.includes(InputFilter)) {
             return items;
@@ -130,22 +131,22 @@ const ProductPage = () => {
             return items;
           }
         } else if (Attribute === "Gender") {
-          if (items.Gender.toLowerCase().includes(InputFilter) ) {
+          if (items.Gender.toLowerCase().includes(InputFilter)) {
             return items;
           }
         } else if (Attribute === "Quantity") {
-          if (items.Quantity===parseInt(InputFilter) ) {
+          if (items.Quantity === parseInt(InputFilter)) {
             return items;
           }
-        }else if (Attribute === "Status") {
-          if (items.Status.toLowerCase().includes(InputFilter) ) {
+        } else if (Attribute === "Status") {
+          if (items.Status.toLowerCase().includes(InputFilter)) {
             return items;
           }
         }
       }
     }
   });
-  console.log(filteredProducts2, 'nishu');
+  console.log(filteredProducts2, "nishu");
 
   return (
     <>
@@ -161,11 +162,7 @@ const ProductPage = () => {
         p={"1.1rem"}
       >
         <Flex alignItems={"left"} textAlign={"left"}>
-          <Box
-            m="auto"
-            w={"40%"}
-            p={"1rem"}
-          >
+          <Box m="auto" w={"40%"} p={"1rem"}>
             <Flex
               alignItems={"center"}
               textAlign={"center"}
@@ -175,11 +172,10 @@ const ProductPage = () => {
               <Container className="rounded border-right-0-dark">
                 <Row>
                   <Col className="rounded border border-dark">
-
                     <Select
                       //   name="Color"
                       // variant="outline"
-                      style={{border: 'none'}}
+                      style={{ border: "none" }}
                       placeholder="Attribute"
                       onChange={(e) => handleAttributes(e)}
                     >
@@ -193,7 +189,7 @@ const ProductPage = () => {
                   <Col className="rounded border border-dark">
                     <Select
                       //   name="Color"
-                      style={{border: 'none'}}
+                      style={{ border: "none" }}
                       placeholder="Operations"
                       onChange={(e) => handleOperator(e)}
                     >
@@ -209,96 +205,19 @@ const ProductPage = () => {
                       value={InputFilter}
                     ></Input>
                   </Col>
-
-                 
                 </Row>
-
-                
               </Container>
             </Flex>
           </Box>
           <Spacer />
         </Flex>
 
-      <Box
-        m="auto"
-        w={"95%"}
-        boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-        p={"1.1rem"}
-      >
-        <Flex
-          alignItems={"center"}
-          textAlign={"center"}
-          justifyContent={"space-between"}
-          my={"5"}
-          fontSize={["7px", "10px", "12px", "15px"]}
+        <Box
+          m="auto"
+          w={"95%"}
+          boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+          p={"1.1rem"}
         >
-          {" "}
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              S No.
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Image
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Product Id
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Name
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Gender
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Selling Price
-            </Text>
-          </Box>
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              Quantity
-            </Text>
-          </Box>
-          {/* <Box w="15%" ><Text fontSize='1.2em' fontWeight='bold'>START DATE</Text></Box>
-            <Box w="15%" ><Text fontSize='1.2em' fontWeight='bold'>END DATE</Text></Box> */}
-          <Box w="15%">
-            <Text fontSize="1.2em" fontWeight="bold">
-              STATUS
-            </Text>
-          </Box>
-          <Box>
-            <Flex
-              alignItems={"center"}
-              justifyContent={"space-between"}
-              w="20%"
-            >
-              <Box mx={"3"}>
-                <Button>
-                  <Icon float="left" as={DeleteIcon} color="red" />
-                </Button>
-              </Box>
-              <Box mx={"3"}>
-                <Button>
-                  <Icon as={EditIcon} float="right" color="red" />
-                </Button>
-              </Box>
-            </Flex>
-          </Box>
-        </Flex>
-        {filteredProducts2.map((item, index) => (
-          
-          
-          
           <Flex
             alignItems={"center"}
             textAlign={"center"}
@@ -306,54 +225,123 @@ const ProductPage = () => {
             my={"5"}
             fontSize={["7px", "10px", "12px", "15px"]}
           >
-            <Box w="15%">{index + 1}</Box>
-            <Box width={"15%"} mx={"2"}>
-              <LazyLoadImage
-                width={"100%"}
-                src={item.image[0][0]}
-                alt={item.productName}
-                effect= 'blur'
-              />
+            {" "}
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                S No.
+              </Text>
             </Box>
-            <Box w="15%">{item.productId}</Box>
-            {isLargerThan ? <Box w="15%">{item.productName}</Box> : null}
-            <Box w="15%">{item.productGender}</Box>
-            <Box w="15%">{item.selling_price}</Box>
-            <Box w="15%">{item.Quantity ? item.Quantity : 0}</Box>
-            <Box
-              w="15%"
-              bg={item.Status === "Stock Updated" ? "#198754" : "#DC3444"}
-            >
-              <Text color="white">{item.Status}</Text>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Image
+              </Text>
+            </Box>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Product Id
+              </Text>
+            </Box>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Name
+              </Text>
+            </Box>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Gender
+              </Text>
+            </Box>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Selling Price
+              </Text>
+            </Box>
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                Quantity
+              </Text>
+            </Box>
+            {/* <Box w="15%" ><Text fontSize='1.2em' fontWeight='bold'>START DATE</Text></Box>
+            <Box w="15%" ><Text fontSize='1.2em' fontWeight='bold'>END DATE</Text></Box> */}
+            <Box w="15%">
+              <Text fontSize="1.2em" fontWeight="bold">
+                STATUS
+              </Text>
             </Box>
             <Box>
               <Flex
                 alignItems={"center"}
                 justifyContent={"space-between"}
-                w="10%"
+                w="20%"
               >
                 <Box mx={"3"}>
                   <Button>
-                    <Icon
-                      as={DeleteIcon}
-                      color="red"
-                      onClick={() => deleteProduct(item.productId)}
-                    />
+                    <Icon float="left" as={DeleteIcon} color="red" />
                   </Button>
                 </Box>
                 <Box mx={"3"}>
-                  <ProductUpdate
-                    id={item.productId}
-                    products={products}
-                    dispatch={dispatch}
-                  />
+                  <Button>
+                    <Icon as={EditIcon} float="right" color="red" />
+                  </Button>
                 </Box>
               </Flex>
             </Box>
           </Flex>
-          
-        ))}
-      </Box>
+          {filteredProducts2.map((item, index) => (
+            <Flex
+              alignItems={"center"}
+              textAlign={"center"}
+              justifyContent={"space-between"}
+              my={"5"}
+              fontSize={["7px", "10px", "12px", "15px"]}
+            >
+              <Box w="15%">{index + 1}</Box>
+              <Box width={"15%"} mx={"2"}>
+                <LazyLoadImage
+                  width={"100%"}
+                  src={item.image[0][0]}
+                  alt={item.productName}
+                  effect="blur"
+                />
+              </Box>
+              <Box w="15%">{item.productId}</Box>
+              {isLargerThan ? <Box w="15%">{item.productName}</Box> : null}
+              <Box w="15%">{item.productGender}</Box>
+              <Box w="15%">{item.selling_price}</Box>
+              <Box w="15%">{item.Quantity ? item.Quantity : 0}</Box>
+              <Box
+                w="15%"
+                bg={item.Status === "Stock Updated" ? "#198754" : "#DC3444"}
+              >
+                <Text color="white">{item.Status}</Text>
+              </Box>
+              <Box>
+                <Flex
+                  alignItems={"center"}
+                  justifyContent={"space-between"}
+                  w="10%"
+                >
+                  <Box mx={"3"}>
+                    <Button>
+                      <Icon
+                        as={DeleteIcon}
+                        color="red"
+                        onClick={() => deleteProduct(item.productId)}
+                      />
+                    </Button>
+                  </Box>
+                  <Box mx={"3"}>
+                    <ProductUpdate
+                      id={item.productId}
+                      products={products}
+                      dispatch={dispatch}
+                    />
+                  </Box>
+                </Flex>
+              </Box>
+            </Flex>
+          ))}
+        </Box>
       </Box>
     </>
   );

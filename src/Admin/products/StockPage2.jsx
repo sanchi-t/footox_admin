@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 import Container from "react-bootstrap/Container";
@@ -101,15 +101,15 @@ const StockPage2 = () => {
   const mystyle = {
     // marginLeft: "34em",
     marginTop: "-45px",
-    position : "relative",
+    position: "relative",
   };
   var len = prod.length;
   // console.log(prod.Quantity);
-  const handleClick = async(id, sku, i) => {
+  const handleClick = async (id, sku, i) => {
     //   const aman = id + "/" + col + "/" + item;
 
     console.log(newObject);
-    console.log(prod, 'prod');
+    console.log(prod, "prod");
 
     console.log(products);
     // console.log(currentProducts);
@@ -123,34 +123,39 @@ const StockPage2 = () => {
       data.append("productId", id);
       data.append("SKUId", sku);
       data.append("Quantity", quant);
-      
 
-      const updatedDataResponse = await axios.put(`${process.env.REACT_APP_BACKEND_SERVER}admin5/`,data).then((res) => {
-        console.log(res.status);
-        // if (res.data.status === 200) {
-        swal("Success", res.data.message, "success")
-      });
+      const updatedDataResponse = await axios
+        .put(`${process.env.REACT_APP_API_BASE_URL}admin5/`, data)
+        .then((res) => {
+          console.log(res.status);
+          // if (res.data.status === 200) {
+          swal("Success", res.data.message, "success");
+        });
 
-      const responses = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getStock`);
-      console.log('sd', responses.data);
+      const responses = await axios.get(
+        `${process.env.REACT_APP_API_BASE_URL}getStock`
+      );
+      console.log("sd", responses.data);
 
       // setPFQ(responses.data);
 
-      for(let i= 0; i< responses.data.length; i++){
+      for (let i = 0; i < responses.data.length; i++) {
         productQuant.push(responses.data[i]);
       }
 
-      console.log('prodquant', productQuant);
-  
-      const currentProducts1 = productQuant.filter((item) => item.productId === id);
-     
-      console.log('pro', productQuant);
-      console.log('curr', currentProducts1);
-     
+      console.log("prodquant", productQuant);
+
+      const currentProducts1 = productQuant.filter(
+        (item) => item.productId === id
+      );
+
+      console.log("pro", productQuant);
+      console.log("curr", currentProducts1);
+
       for (let i = 0; i < currentProducts1.length; i++) {
         sum = sum + currentProducts1[i].Quantity;
       }
-     
+
       console.log(sum);
       const payload = {
         Quantity: sum,
@@ -172,7 +177,7 @@ const StockPage2 = () => {
 
   const dispatch = useDispatch();
   console.log(prod);
-  console.log(products, 'amanaa123');
+  console.log(products, "amanaa123");
   //   const handleshowhide = (e) => {
   //     e.preventDefault();
   //     const getuser = e.target.value;
@@ -181,48 +186,49 @@ const StockPage2 = () => {
 
   // }
   const axiosTest = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getStock`);
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_BASE_URL}getStock`
+    );
     setProd(response.data);
   };
   useEffect(() => {
     axiosTest();
   }, []);
- 
+
   useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
 
   {
-    
-        {products.map((products, num1) => (
-          <>
-          
-            {products.color.map((col, index) => (
-              <>
-                {products.Sizes[index].map((item, i) => {
-                  num = num + 1;
-                  // console.log(products, num1);
-                  var aman = num;
+    {
+      products.map((products, num1) => (
+        <>
+          {products.color.map((col, index) => (
+            <>
+              {products.Sizes[index].map((item, i) => {
+                num = num + 1;
+                // console.log(products, num1);
+                var aman = num;
 
-                  var sku = products.productId + "/" + col + "/" + item;
+                var sku = products.productId + "/" + col + "/" + item;
 
-                   var nishu = prod.find((item)=>item.SKUId===sku) ? prod.find((item)=>item.SKUId===sku): {productId:products.productId , SKUId:sku, Quantity: 0}; 
-                  
+                var nishu = prod.find((item) => item.SKUId === sku)
+                  ? prod.find((item) => item.SKUId === sku)
+                  : { productId: products.productId, SKUId: sku, Quantity: 0 };
 
-                  filteredProducts1[num - 1] = {
-                    productId: products.productId,
-                    skuid: sku,
-                    productName: products.productName,
-                    // Quantity: aman - 1 < len ? prod[aman - 1].Quantity : 0,
-                    Quantity: nishu.Quantity ,
-                  };
-                  
-                })}
-              </>
-            ))}
-          </>
-        ))}
-     
+                filteredProducts1[num - 1] = {
+                  productId: products.productId,
+                  skuid: sku,
+                  productName: products.productName,
+                  // Quantity: aman - 1 < len ? prod[aman - 1].Quantity : 0,
+                  Quantity: nishu.Quantity,
+                };
+              })}
+            </>
+          ))}
+        </>
+      ));
+    }
   }
 
   const filteredProducts2 = filteredProducts1.filter((items) => {
@@ -248,7 +254,7 @@ const StockPage2 = () => {
             return items;
           }
         }
-      }else if(operator==='Contains'){
+      } else if (operator === "Contains") {
         if (Attribute === "Product Id") {
           if (items.productId.includes(InputFilter)) {
             return items;
@@ -259,18 +265,18 @@ const StockPage2 = () => {
             return items;
           }
         } else if (Attribute === "SKU ID") {
-          if (items.skuid.toLowerCase().includes(InputFilter) ) {
+          if (items.skuid.toLowerCase().includes(InputFilter)) {
             return items;
           }
         } else if (Attribute === "Quantity") {
-          if (items.Quantity===parseInt(InputFilter) ) {
+          if (items.Quantity === parseInt(InputFilter)) {
             return items;
           }
         }
       }
     }
   });
-  console.log(filteredProducts2, 'amanaa');
+  console.log(filteredProducts2, "amanaa");
 
   return (
     <>
@@ -279,7 +285,7 @@ const StockPage2 = () => {
       <Heading>
         Stock
         {/* <Text style={mystyle}> */}
-          <AdminUpdate />
+        <AdminUpdate />
         {/* </Text> */}
       </Heading>
       {/* <Heading>Stock</Heading> */}
@@ -292,11 +298,7 @@ const StockPage2 = () => {
         p={"1.1rem"}
       >
         <Flex alignItems={"left"} textAlign={"left"}>
-          <Box
-            m="auto"
-            w={"40%"}
-            p={"1rem"}
-          >
+          <Box m="auto" w={"40%"} p={"1rem"}>
             <Flex
               alignItems={"center"}
               textAlign={"center"}
@@ -306,11 +308,10 @@ const StockPage2 = () => {
               <Container className="rounded border-right-0-dark">
                 <Row>
                   <Col className="rounded border border-dark">
-
                     <Select
                       //   name="Color"
                       // variant="outline"
-                      style={{border: 'none'}}
+                      style={{ border: "none" }}
                       placeholder="Attribute"
                       onChange={(e) => handleAttributes(e)}
                     >
@@ -323,7 +324,7 @@ const StockPage2 = () => {
                   <Col className="rounded border border-dark">
                     <Select
                       //   name="Color"
-                      style={{border: 'none'}}
+                      style={{ border: "none" }}
                       placeholder="Operations"
                       onChange={(e) => handleOperator(e)}
                     >
@@ -339,17 +340,12 @@ const StockPage2 = () => {
                       value={InputFilter}
                     ></Input>
                   </Col>
-
-                 
                 </Row>
-
-                
               </Container>
             </Flex>
           </Box>
           <Spacer />
         </Flex>
-       
 
         <Box
           m="auto"
@@ -430,9 +426,7 @@ const StockPage2 = () => {
                       className="form-control"
                       style={textStyle}
                     />
-                   
                   </form>
-                 
                 </Box>
 
                 <Box mx={"3"}>
@@ -451,9 +445,7 @@ const StockPage2 = () => {
           })}
 
           <br></br>
-       
         </Box>
-      
       </Box>
     </>
   );

@@ -18,6 +18,8 @@ import { Users } from "../Admin/Users";
 import { MyForm } from "../Admin/Instagram";
 import SendMail from "../Admin/products/sendMail";
 import { AuthContext } from "../Admin/Context/authProvider";
+import ReturnPage from "../Admin/products/returnManagement";
+import ExchangePage from "../Admin/products/exchangeManagement";
 const AllRoutes = () => {
   const dispatch = useDispatch();
   const [isLoggedIn, setIsLoggedIn] = useState({});
@@ -78,6 +80,13 @@ const AllRoutes = () => {
 
           <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor']} />}>
             <Route path="/orderManagement" element={<OrderPage />} />
+          </Route>
+          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor']} />}>
+            <Route path="/returnOrders" element={<ReturnPage />} />
+          </Route>
+
+          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor']} />}>
+            <Route path="/exchangeOrders" element={<ExchangePage />} />
           </Route>
 
           <Route element={<Auth allowedRoles={['superadmin', 'admin', 'operator', 'supervisor']} />}>

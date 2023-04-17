@@ -6,7 +6,7 @@ const getMensData = (params) => (dispatch) => {
 
   return axios
     .get(
-      `${process.env.REACT_APP_BACKEND_SERVER}men`,
+      `${process.env.REACT_APP_API_BASE_URL}men`,
       params
     )
     .then((res) => {
@@ -22,7 +22,7 @@ const getWomensData = (params) => (dispatch) => {
 
   return axios
     .get(
-      `${process.env.REACT_APP_BACKEND_SERVER}women`,
+      `${process.env.REACT_APP_API_BASE_URL}women`,
       params
     )
     .then((res) => {
@@ -35,7 +35,7 @@ const getWomensData = (params) => (dispatch) => {
 const getShoesData = (params) => (dispatch) => {
   dispatch({ type: types.GET_MENS_DATA_R });
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_SERVER}shoes` params)
+    .get(`${process.env.REACT_APP_API_BASE_URL}shoes` params)
     .then((res) => {
       dispatch({ type: types.GET_SHOES_DATA_S, payload: res.data });
     })

@@ -61,7 +61,7 @@ const EditUser = ({ emailid, users }) => {
 
   useEffect(() => {
     if (emailid) {
-      //   const users = axios.get(`${process.env.REACT_APP_BACKEND_SERVER}getUserByEmail`);
+      //   const users = axios.get(`${process.env.REACT_APP_API_BASE_URL}getUserByEmail`);
       //   console.log(users)
       if (users) {
         setName(users.name);

@@ -37,7 +37,7 @@ export function Users() {
   };
   const deleteUser = (email) => {
     axios
-      .post(`${process.env.REACT_APP_BACKEND_SERVER}deleteEmployee/`, { email })
+      .post(`${process.env.REACT_APP_API_BASE_URL}deleteEmployee/`, { email })
       .then((res) => {
         console.log(res.status, "status");
         console.log(res.data, "data");
@@ -47,7 +47,7 @@ export function Users() {
 
   const axiosTest = async () => {
     await axios
-      .get(`${process.env.REACT_APP_BACKEND_SERVER}getEmployee`)
+      .get(`${process.env.REACT_APP_API_BASE_URL}getEmployee`)
       .then((response) => {
         setProd(response.data);
       })
@@ -162,27 +162,23 @@ export function Users() {
             <Box w="25%">{items?.role}</Box>
             <Box w="25%">{items?.status ? items.status : "Inactive"}</Box>
             <Flex
-                alignItems={"center"}
-                justifyContent={"space-between"}
-                w="10%"
-              >
-                
-                <Box mx={"3"}>
-                  <EditUser
-                    emailid={items?.email}
-                    users = {items}
+              alignItems={"center"}
+              justifyContent={"space-between"}
+              w="10%"
+            >
+              <Box mx={"3"}>
+                <EditUser emailid={items?.email} users={items} />
+              </Box>
+              <Box mx={"3"}>
+                <Button>
+                  <Icon
+                    as={DeleteIcon}
+                    color="red"
+                    onClick={() => deleteUser(items?.email)}
                   />
-                </Box>
-                <Box mx={"3"}>
-                  <Button>
-                    <Icon
-                      as={DeleteIcon}
-                      color="red"
-                      onClick={() => deleteUser(items?.email)}
-                    />
-                  </Button>
-                </Box>
-              </Flex>
+                </Button>
+              </Box>
+            </Flex>
           </Flex>
         ))}
 

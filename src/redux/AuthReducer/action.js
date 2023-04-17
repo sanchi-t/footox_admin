@@ -6,7 +6,7 @@ import * as types from "./actionType";
 const register = (payload, toast) => (dispatch) => {
   dispatch({ type: types.REGISTER_R });
   return axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}signup`, payload)
+    .post(`${process.env.REACT_APP_API_BASE_URL}signup`, payload)
     .then((r) => {
       console.log(r.data);
       // setToast(toast, "Registered Successful", "success");
@@ -23,7 +23,7 @@ const register = (payload, toast) => (dispatch) => {
 //   saveLocalData("userInfo", payload.email)
 //   dispatch({ type: types.LOGIN_R });
 //   return axios
-//     .post(`${process.env.REACT_APP_BACKEND_SERVER}adminLogin`, payload)
+//     .post(`${process.env.REACT_APP_API_BASE_URL}adminLogin`, payload)
 //     .then((r) => {
 //       // setToast(toast, "Login Successful", "success");
 //       console.log(r.data);
@@ -40,7 +40,7 @@ const login = (payload, toast) => (dispatch) => {
 
   dispatch({ type: types.LOGIN_R });
   return axios
-    .post(`${process.env.REACT_APP_BACKEND_SERVER}adminLogin`, payload)
+    .post(`${process.env.REACT_APP_API_BASE_URL}adminLogin`, payload)
     .then((r) => {
       localStorage.setItem("userInfo", JSON.stringify(r.data));
       return dispatch({ type: types.LOGIN_S, payload: r.data });

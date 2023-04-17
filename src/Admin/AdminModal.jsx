@@ -20,74 +20,76 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-} from '@chakra-ui/react'
-import axios from 'axios';
-import { Box,  Flex,  Heading, Text } from "@chakra-ui/react";
+} from "@chakra-ui/react";
+import axios from "axios";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
-import {useRef ,useState } from "react";
-import {useNavigate} from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 export function AdminUpdate({ id, products, dispatch, getData }) {
   const [CSV, setCSV] = useState("");
   const [count, setCount] = useState([]);
- 
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  
+
   const handleCSV = (e) => {
-    setCSV(e.target.files[0])
-    
-  }
+    setCSV(e.target.files[0]);
+  };
   // setTimeout(function(){
   //   axios.get("http://localhost:4000/count").then(data=>{
   //     setCount(data.data);
   //   });
 
-  // }, 500); 
+  // }, 500);
   const axiosTest1 = async () => {
-    axios.get(`${process.env.REACT_APP_BACKEND_SERVER}count`).then(data=>{
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}count`).then((data) => {
       setCount(data.data);
-      alert('Total Rows: '+data.data[data.data.length-2]+ "       Inserted Rows: " + data.data[data.data.length-1]);
-  })};
+      alert(
+        "Total Rows: " +
+          data.data[data.data.length - 2] +
+          "       Inserted Rows: " +
+          data.data[data.data.length - 1]
+      );
+    });
+  };
   // useEffect(() => {
   //   axiosTest1();
   // }, []);
 
   const len = count.length;
   // console.log(count);
-  const handleSubmit = (e) =>{
-   
-    
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(CSV);
     const CSVData = new FormData();
 
-   
-       
-        CSVData.append('CSVFile', CSV);
-      
+    CSVData.append("CSVFile", CSV);
 
-        axios.post(`${process.env.REACT_APP_BACKEND_SERVER}admin5/`, CSVData).then(res => {
-            console.log(res.status);
-            if(res.status===200){
-            
-            }
-        });
-        axiosTest1();
-       
-       
-        console.log(count);
-       
-     
-  }
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}admin5/`, CSVData)
+      .then((res) => {
+        console.log(res.status);
+        if (res.status === 200) {
+        }
+      });
+    axiosTest1();
 
+    console.log(count);
+  };
 
   return (
     <>
-      <Button colorScheme='teal' variant='outline' onClick={onOpen} style={{float: "right", marginRight: "3em"}}>
+      <Button
+        colorScheme="teal"
+        variant="outline"
+        onClick={onOpen}
+        style={{ float: "right", marginRight: "3em" }}
+      >
         Bulk Upload
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -97,17 +99,17 @@ export function AdminUpdate({ id, products, dispatch, getData }) {
           <ModalCloseButton />
           <ModalBody>
             <form onSubmit={handleSubmit} enctype="multipart/form-data">
-              <input
-                type={'file'}
-                
-                onChange={handleCSV}
-              
-              />
+              <input type={"file"} onChange={handleCSV} />
               <ModalFooter>
-                <Button bg={"teal"} color={"white"} mr={1} type="submit" onClick={onClose}>
+                <Button
+                  bg={"teal"}
+                  color={"white"}
+                  mr={1}
+                  type="submit"
+                  onClick={onClose}
+                >
                   Upload
                 </Button>
-                
               </ModalFooter>
             </form>
           </ModalBody>

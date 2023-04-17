@@ -1,7 +1,7 @@
 import * as types from "./actionType";
 import axios from "axios";
 
-const BackendServer = process.env.REACT_APP_BACKEND_SERVER;
+const BackendServer = process.env.REACT_APP_API_BASE_URL;
 
 const getData = (params) => (dispatch) => {
   dispatch({ type: types.GET_DATA_R });
@@ -39,7 +39,7 @@ const deleteData = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}admin1`,
+      `${process.env.REACT_APP_API_BASE_URL}admin1`,
       { id },
       {
         headers: {
@@ -59,7 +59,7 @@ const addData = (details) => (dispatch) => {
   dispatch({ type: types.Add_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}admin2/`,
+      `${process.env.REACT_APP_API_BASE_URL}admin2/`,
       { details },
       {
         headers: {
@@ -80,7 +80,7 @@ const addData = (details) => (dispatch) => {
 const getCoupon = (params) => (dispatch) => {
   dispatch({ type: types.GET_DATA_R });
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_SERVER}coupon`, params)
+    .get(`${process.env.REACT_APP_API_BASE_URL}coupon`, params)
     .then((res) => {
       dispatch({ type: types.GET_DATA_S, payload: res.data });
     })
@@ -93,7 +93,7 @@ const updateCoupon = (id, payload) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}coupon`,
+      `${process.env.REACT_APP_API_BASE_URL}coupon`,
       { id, payload },
       {
         headers: {
@@ -113,7 +113,7 @@ const getOneCoupon = (id, mode) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}couponOne`,
+      `${process.env.REACT_APP_API_BASE_URL}couponOne`,
       { id, mode },
       {
         headers: {
@@ -132,7 +132,7 @@ const getOneCoupon = (id, mode) => (dispatch) => {
 const deleteCoupon = (id) => (dispatch) => {
   dispatch({ type: types.DELETE_DATA_R });
   return axios
-    .delete(`${process.env.REACT_APP_BACKEND_SERVER}coupon/${id}`)
+    .delete(`${process.env.REACT_APP_API_BASE_URL}coupon/${id}`)
     .then((res) => {
       dispatch({ type: types.DELETE_DATA_S });
     })
@@ -145,7 +145,7 @@ const addCoupon = (details) => (dispatch) => {
   dispatch({ type: types.Add_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}coupon`,
+      `${process.env.REACT_APP_API_BASE_URL}coupon`,
       { details },
       {
         headers: {
@@ -165,7 +165,7 @@ const getBannerData = (params) => (dispatch) => {
   console.log("aman");
   dispatch({ type: types.GET_DATA_R });
   return axios
-    .get(`${process.env.REACT_APP_BACKEND_SERVER}banner`, params)
+    .get(`${process.env.REACT_APP_API_BASE_URL}banner`, params)
     .then((res) => {
       dispatch({ type: types.GET_DATA_S, payload: res.data });
       console.log(res.data, "zxcvbn");
@@ -179,7 +179,7 @@ const updateBannerData = (id, payload) => (dispatch) => {
   dispatch({ type: types.UPDATE_DATA_R });
   return axios
     .post(
-      `${process.env.REACT_APP_BACKEND_SERVER}banner`,
+      `${process.env.REACT_APP_API_BASE_URL}banner`,
       { id, payload },
       {
         headers: {
