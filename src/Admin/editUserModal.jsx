@@ -100,7 +100,9 @@ const EditUser = ({ emailid, users }) => {
         //     })
         // });
         console.log(data);
-        axios.post(`http://localhost:4000/editUser`, data).then((res) => {
+        // `${process.env.REACT_APP_API_BASE_URL}createUser`
+        // `http://localhost:4000/editUser`
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}editUser`, data).then((res) => {
           console.log(res.status);
 
           toast({

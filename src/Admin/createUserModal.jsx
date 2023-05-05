@@ -205,7 +205,9 @@ const CreateUser = ({ toggled, toggle }) => {
         //     })
         // });
         console.log(data);
-        axios.post(`http://localhost:4000/createUser`, data).then((res) => {
+        // `http://localhost:4000/createUser`
+        // `${process.env.REACT_APP_API_BASE_URL}createUser`
+        axios.post(`${process.env.REACT_APP_API_BASE_URL}createUser`, data).then((res) => {
           console.log(res.status);
           toggle(!toggled);
 

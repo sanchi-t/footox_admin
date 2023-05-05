@@ -46,7 +46,7 @@ const AllRoutes = () => {
             } />
           </Route>
 
-          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor']} />}>
+          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor', 'operator']} />}>
             <Route path="/StockPage" element={
               <PrivateRoute>
                 <StockPage2 />
@@ -95,7 +95,7 @@ const AllRoutes = () => {
 
           <Route path="/SendMail" element={<SendMail />} />
 
-          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor']} />}>
+          <Route element={<Auth allowedRoles={['superadmin', 'admin', 'supervisor', 'operator']} />}>
             <Route
               path="/coupon"
               element={

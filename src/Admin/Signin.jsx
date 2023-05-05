@@ -1,151 +1,152 @@
 import { useNavigate, useLocation } from "react-router";
 import { useState, useContext } from "react";
-import useAuth from '../Admin/hooks/useAuth'
+import useAuth from "../Admin/hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/AuthReducer/action";
 // import {login} fom "../"
-import {AuthContext} from './Context/authProvider';
+import { AuthContext } from "./Context/authProvider";
 // import { useContext } from 'react';
 // import useAuth from "./hooks/useAuth";
 import axios from "axios";
 import {
-    Box,
-    Button,
-    Checkbox,
-    Flex,
-    FormControl,
-    FormLabel,
-    Heading,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Link,
-    Spinner,
-    Stack,
-    Text,
-    useToast,
-  } from "@chakra-ui/react";
-  import { ViewIcon } from "@chakra-ui/icons";
-  
-  import { Link as RouterLink} from "react-router-dom";
+  Box,
+  Button,
+  Checkbox,
+  Flex,
+  FormControl,
+  FormLabel,
+  Heading,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Link,
+  Spinner,
+  Stack,
+  Text,
+  useToast,
+} from "@chakra-ui/react";
+import { ViewIcon } from "@chakra-ui/icons";
+
+import { Link as RouterLink } from "react-router-dom";
 const Signin = () => {
   const navigate = useNavigate();
   const loading = useSelector((store) => store.AuthReducer.isLoading);
   const location = useLocation();
   const dispatch = useDispatch();
-  const from = "/viewProduct"
-  
+  const from = "/viewProduct";
+
   // console.log(location.state?.from?.pathname );
-  
+
   const { setIsLoggedIn } = useContext(AuthContext);
 
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [eye, setEye] = useState(false);
-  const toast = useToast()
+  const toast = useToast();
   const handleEye = () => {
     setEye((prev) => !prev);
   };
 
   const API = axios.create({
-    baseURL: 'http://localhost:4000',
+    // `${process.env.REACT_APP_API_BASE_URL}createUser`
+    // baseURL: "http://localhost:4000",
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+  });
 
-   
-  })
-
-const handleSubmit = async(e) => {
-  e.preventDefault();
-      try {
-        const res = await API.post('/adminLogin', {
-          name, password
-        })
-        .then(res=> {
-          console.log(res);
-          if(res?.data.name){
-            const role=res?.data.role;
-            console.log({"role":`${role}`, "name":`${name}`})
-            setIsLoggedIn({"role":`${role}`, "name":`${name}`});
-            // setIsLoggedIn(true);
-            // console.log(auth, 'asdf');
-          setName('');
-          setPassword('');
-          var userInfo = {"name": res.data.name, "role": `${role}`, loggedIn: true};
-          localStorage.setItem('userInfo',  JSON.stringify(userInfo));
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await API.post("adminLogin", {
+        name,
+        password,
+      }).then((res) => {
+        console.log(res);
+        if (res?.data.name) {
+          const role = res?.data.role;
+          console.log({ role: `${role}`, name: `${name}` });
+          setIsLoggedIn({ role: `${role}`, name: `${name}` });
+          // setIsLoggedIn(true);
+          // console.log(auth, 'asdf');
+          setName("");
+          setPassword("");
+          var userInfo = {
+            name: res.data.name,
+            role: `${role}`,
+            loggedIn: true,
+          };
+          localStorage.setItem("userInfo", JSON.stringify(userInfo));
           // localStorage.setItem('token', res.data.token);
-         navigate(from, {replace : true});
-          }
-          else{
-            console.log('incorrect submission',res?.data.message );
-            setError(res?.data.message);
-          }
-        })
-        console.log('working');
+          navigate(from, { replace: true });
+        } else {
+          console.log("incorrect submission", res?.data.message);
+          setError(res?.data.message);
+        }
+      });
+      console.log("working");
+      toast({
+        title: "Login Succesful",
+        description: "You are logged in.",
+        status: "success",
+        duration: 1000,
+        isClosable: true,
+        position: "top",
+      });
+
+      // if (name && password) {
+      //   const params = {
+      //     name,
+      //     password,
+      //   };
+      //   dispatch(login(params, toast)).then((res) => {
+      //     // console.log(res.payload)
+      //     if (res.payload.msg === "login successfully") {
+      //       const role = res.payload.role;
+      //       setIsLoggedIn({"role":`${role}`, "name":`${name}`});
+      //       toast({
+      //         title: "Login Success",
+      //         description: "You are successfully logged in",
+      //         status: "success",
+      //         duration: 3000,
+      //         isClosable: true,
+      //         position: "top",
+      //       });
+      //       navigate(from, { replace: true });
+      //     } else {
+      //       toast({
+      //         title: res.payload.msg,
+      //         status: "error",
+      //         duration: 3000,
+      //         isClosable: true,
+      //         position: "top",
+      //       });
+      //     }
+      //   });
+      // }
+    } catch (err) {
+      if (!err?.response) {
+        setError("no server response");
+        console.log("eror");
+      } else {
+        const something = err.response.data.message;
+        console.log(something);
         toast({
-          title: 'Login Succesful',
-          description: "You are logged in.",
-          status: 'success',
+          title: "Login failed.",
+          description: "Incoorect Username or password.",
+          description: something,
+          status: "error",
           duration: 1000,
           isClosable: true,
           position: "top",
-        })
-
-        // if (name && password) {
-        //   const params = {
-        //     name,
-        //     password,
-        //   };
-        //   dispatch(login(params, toast)).then((res) => {
-        //     // console.log(res.payload)
-        //     if (res.payload.msg === "login successfully") {
-        //       const role = res.payload.role;
-        //       setIsLoggedIn({"role":`${role}`, "name":`${name}`});
-        //       toast({
-        //         title: "Login Success",
-        //         description: "You are successfully logged in",
-        //         status: "success",
-        //         duration: 3000,
-        //         isClosable: true,
-        //         position: "top",
-        //       });
-        //       navigate(from, { replace: true });
-        //     } else {
-        //       toast({
-        //         title: res.payload.msg,
-        //         status: "error",
-        //         duration: 3000,
-        //         isClosable: true,
-        //         position: "top",
-        //       });
-        //     }
-        //   });
-        // }
+        });
+        setError("registeration failed");
       }
-      catch(err){
-          if(!err?.response){
-              setError('no server response');
-              console.log("eror")
-          }
-          else {
-            const something = err.response.data.message
-            console.log(something);
-            toast({
-              title: 'Login failed.',
-              description: "Incoorect Username or password.",
-              description: something,
-              status: 'error',
-              duration: 1000,
-              isClosable: true,
-              position: "top",
-            })
-              setError('registeration failed')
-          }
-      }
-}
+    }
+  };
 
-  return (   
-    <>                           
-    {/* <div className="App">
+  return (
+    <>
+      {/* <div className="App">
         <form  onSubmit={handleSubmit}>
         <p>{error}</p>
       <h1>SignIn</h1>
@@ -171,8 +172,7 @@ const handleSubmit = async(e) => {
         </form>
     </div> */}
 
-<Flex minH={"100vh"} align={"center"} justify={"center"}>
- 
+      <Flex minH={"100vh"} align={"center"} justify={"center"}>
         <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
           <Stack align={"center"}>
             <Heading fontSize={"4xl"} textTransform={"uppercase"}>
@@ -238,8 +238,8 @@ const handleSubmit = async(e) => {
           </Box>
         </Stack>
       </Flex>
-    </>         
-  )
-}
+    </>
+  );
+};
 
-export default Signin
+export default Signin;

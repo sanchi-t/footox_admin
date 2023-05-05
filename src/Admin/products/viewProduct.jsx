@@ -43,6 +43,8 @@ const ProductPage = () => {
   const [InputFilter, setInputFilter] = useState("");
   const [Attribute, setAttribute] = useState("");
   const [operator, setOperator] = useState();
+  var userInfo = JSON.parse(localStorage.getItem('userInfo'))|| 'null';
+  var role = userInfo.role||'nothing'
 
   // const status = location.state.status;
   // const id = location.state.id
@@ -275,14 +277,18 @@ const ProductPage = () => {
                 w="20%"
               >
                 <Box mx={"3"}>
+                {role !== 'operator' && role !== 'supervisor' &&(
                   <Button>
                     <Icon float="left" as={DeleteIcon} color="red" />
                   </Button>
+                )}
                 </Box>
                 <Box mx={"3"}>
+                {role !== 'operator' && (
                   <Button>
                     <Icon as={EditIcon} float="right" color="red" />
                   </Button>
+                )}
                 </Box>
               </Flex>
             </Box>
@@ -322,6 +328,7 @@ const ProductPage = () => {
                   w="10%"
                 >
                   <Box mx={"3"}>
+                  {role !== 'operator' && role !== 'supervisor' && (
                     <Button>
                       <Icon
                         as={DeleteIcon}
@@ -329,13 +336,16 @@ const ProductPage = () => {
                         onClick={() => deleteProduct(item.productId)}
                       />
                     </Button>
+                  )}
                   </Box>
                   <Box mx={"3"}>
+                  {role !== 'operator' && (
                     <ProductUpdate
                       id={item.productId}
                       products={products}
                       dispatch={dispatch}
                     />
+                  )}
                   </Box>
                 </Flex>
               </Box>

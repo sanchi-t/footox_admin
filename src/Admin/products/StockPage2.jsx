@@ -10,42 +10,29 @@ import {
   Spacer,
   Input,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaFilter } from "react-icons/fa";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Select } from "@chakra-ui/react";
 
 import {
-  deleteCoupon,
-  getCoupon,
   getData,
   deleteData,
   updateData,
 } from "../../redux/DataReducer/action";
 import AdminNavbar from "../AdminNavbar";
-import { useParams } from "react-router-dom";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-
 // import { ViewSku } from "./ViewSku";
 import {
-  DeleteIcon,
   Icon,
   EditIcon,
-  ViewIcon,
-  ArrowForwardIcon,
   CheckIcon,
-  DragHandleIcon,
-  SearchIcon,
 } from "@chakra-ui/icons";
-import { AdminUpdate } from "../AdminModal";
+import { AdminUpdate } from "../BulkModal";
 // import { ViewDetails } from "./viewDetails";
 import swal from "sweetalert";
 const StockPage2 = () => {
@@ -54,21 +41,23 @@ const StockPage2 = () => {
   // const { quant } = useParams();
   var newObject = {};
   let num = 0;
-  var sum = 0;
+  var userInfo = JSON.parse(localStorage.getItem('userInfo'))|| 'null';
+  var role = userInfo.role||'nothing'
+
   const navigate = useNavigate();
   // const [showhide, setShowhide] = useState('');
   const products = useSelector((state) => state.dataReducer.products);
   const [prod, setProd] = useState([]);
-  const [prod1, setProd1] = useState([]);
-  const [productForQuantity, setPFQ] = useState([]);
+  // const [prod1, setProd1] = useState([]);
+  // const [productForQuantity, setPFQ] = useState([]);
   var filteredProducts1 = [];
   var productQuant = [];
   const [Quantity, setQuantity] = useState({});
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  // const [filteredProducts, setFilteredProducts] = useState([]);
   const [InputFilter, setInputFilter] = useState("");
   const [Attribute, setAttribute] = useState("");
   const [operator, setOperator] = useState();
-  const [Count1, setCount] = useState([]);
+  // const [Count1, setCount] = useState([]);
 
   const handleInputFilter = (e) => {
     const add = e.target.value;
@@ -138,6 +127,7 @@ const StockPage2 = () => {
       console.log("sd", responses.data);
 
       // setPFQ(responses.data);
+      productQuant.length = 0;
 
       for (let i = 0; i < responses.data.length; i++) {
         productQuant.push(responses.data[i]);
@@ -151,9 +141,10 @@ const StockPage2 = () => {
 
       console.log("pro", productQuant);
       console.log("curr", currentProducts1);
-
+      var sum = 0;
       for (let i = 0; i < currentProducts1.length; i++) {
         sum = sum + currentProducts1[i].Quantity;
+        console.log(sum, i);
       }
 
       console.log(sum);
@@ -161,6 +152,7 @@ const StockPage2 = () => {
         Quantity: sum,
         Status: "Stock Updated",
       };
+      console.log(payload, "payload");
       dispatch(updateData(id, payload)).then(() => {
         dispatch(getData());
       });
@@ -387,9 +379,11 @@ const StockPage2 = () => {
               </Text>
             </Box>
             <Box mx={"3"}>
+            {role !== 'operator' && (
               <Button>
                 <Icon as={EditIcon} float="right" color="red" />
               </Button>
+            )}
             </Box>
           </Flex>
 
@@ -430,6 +424,7 @@ const StockPage2 = () => {
                 </Box>
 
                 <Box mx={"3"}>
+                {role !== 'operator' && (
                   <Button>
                     <Icon
                       as={CheckIcon}
@@ -439,6 +434,7 @@ const StockPage2 = () => {
                       }
                     />
                   </Button>
+                )}
                 </Box>
               </Flex>
             );
